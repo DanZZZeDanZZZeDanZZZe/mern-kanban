@@ -1,12 +1,18 @@
 $blueColor:  #0067A3;
 $lightBlueColor: lighten($blueColor, 10%);
+$grayColor:#EBECF0;
 
+@mixin grayBlockMixin {
+    background: $grayColor;
+    color: black;
+    border-radius: 15px;
+}
 @mixin blueBlockMixin{
     background: $blueColor;
     color: white;
 }
 @mixin lightBlueBlockMixin{
-    background: $blueColor;
+    background: $lightBlueColor;
     color: white;
 }
 body, html, #root, .App {
@@ -21,12 +27,15 @@ body, html, #root, .App {
     justify-content: space-between;
     
     .Navbar {
-        @include blueBlockMixin
+        @include blueBlockMixin;
     }
-    main {
-        height: 70%;
-    }
+    .TaskBar {
+        @include lightBlueBlockMixin;
+        .TaskHolder {
+            @include grayBlockMixin;
+        }
+    }   
     .Footer {
-        @include blueBlockMixin
+        @include blueBlockMixin;
     }
 }
