@@ -5,13 +5,13 @@ import {
     Redirect
 } from "react-router-dom"
 import { TaskBar } from './components/TaskBar/TaskBar';
-
+import { Authorization } from './components/Authorization/Authorization';
 
 export const useRoutes = isAutenticated => {
     if (isAutenticated) {
         return (
             <Switch>
-                <Route patch='/' exact>
+                <Route patch='/tasks' exact>
                     <TaskBar/>
                 </Route>
             </Switch>
@@ -20,8 +20,9 @@ export const useRoutes = isAutenticated => {
     
     return (
         <Switch>
-            <Route>
-                
+            <Route patch='/' exact>
+                {console.log("Authorization")}
+                <Authorization />
             </Route>
         </Switch>
     )
