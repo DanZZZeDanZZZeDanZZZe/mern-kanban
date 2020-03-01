@@ -1,16 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './TaskBar.css';
 import { TaskHolder } from './TaskHolder/TaskHolder';
+import Context from '../../context';
 
 export const TaskBar = () => {
+    let [tasksState, setTasksState] = useState(
+        [    
+            {         
+                title: 'Backlog',         
+                issues: [             
+                    { 
+                        id: 'task1',                 
+                        name: 'Sprint bugfix'             
+                    },
+                    { 
+                        id: 'task2',                 
+                        name: 'Sprint bugfix'             
+                    }            
+                ],   
+            },  
+            {         
+                title: 'Ready',         
+                issues: []  
+            },  
+            {         
+                title: 'In progress',         
+                issues: []  
+            },  
+            {         
+                title: 'Finished',         
+                issues: []  
+            },  
+        ]
+    )
     return (
-        <main className="TaskBar">
-            <div className="TaskContainer">
-                <TaskHolder title="Backlog"/>
-                <TaskHolder title="Ready"/>
-                <TaskHolder title="In progress"/>
-                <TaskHolder title="Finished"/>
-            </div>
-        </main>
+        <Context.Provider value = {{ }}>
+            <main className="TaskBar">
+                <div className="TaskContainer">
+                    {
+                        tasksState.map(item => {
+                            return (
+                                <TaskHolder
+                                    title = {item.title}
+                                    issues = {item.issues}
+                                />
+                            )
+                        })
+                    }
+                </div>
+            </main>
+        </Context.Provider>
     )
 }
