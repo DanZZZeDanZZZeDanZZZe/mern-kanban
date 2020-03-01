@@ -33,16 +33,18 @@ export const TaskBar = () => {
             },  
         ]
     )
+
     return (
         <Context.Provider value = {{ }}>
             <main className="TaskBar">
                 <div className="TaskContainer">
                     {
-                        tasksState.map(item => {
+                        tasksState.map((item, index) => {
                             return (
                                 <TaskHolder
                                     title = {item.title}
                                     issues = {item.issues}
+                                    key = {index}
                                 />
                             )
                         })

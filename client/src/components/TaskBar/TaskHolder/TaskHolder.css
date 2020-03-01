@@ -6,3 +6,20 @@
     min-width: 200px;
     max-height: 90%;
 }
+.Task {
+    width: 100%;
+    padding: auto;
+}
+.Task input {
+    display: block;
+    width: 100%;
+    padding: .5rem 0;
+}
+.Task ul{
+    list-style-type: none;
+    padding: 0;
+}
+.Task ul li {
+    padding: .5rem;
+    margin: .5rem 0;
+}
