@@ -1,4 +1,8 @@
 .TaskHolder {
-    height: 150px;
-    width: 150px;
+    position: relative;
+    width: 25%;
+    margin: 1rem;
+    padding: .5rem;
+    min-width: 200px;
+    max-height: 90%;
 }

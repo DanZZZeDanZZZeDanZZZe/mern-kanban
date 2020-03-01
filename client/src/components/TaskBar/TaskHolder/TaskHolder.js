@@ -1,10 +1,15 @@
 import React from 'react';
 import './TaskHolder.css';
 
-export const TaskHolder = props => {
+export const TaskHolder = ({ title }) => {
     return (
         <div className="TaskHolder">
-            <p>{props.title}</p>
+            <span>{title}</span>
+            <div>
+                <button>
+                    <span>+</span> Add card
+                </button>
+            </div>
         </div>
     )
 }
