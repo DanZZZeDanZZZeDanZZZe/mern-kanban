@@ -2,9 +2,9 @@ import React, {useContext, useState} from 'react';
 import './TaskHolder.css';
 import Context from '../../../context';
 
-export const TaskHolder = ({ title, issues }) => {
+export const TaskHolder = ({ title, issues, index }) => {
     const [intel, setIntel] = useState(false);
-    const {  } = useContext(Context)
+    const { addTask } = useContext(Context)
     function clickHolder() {
         setIntel(!intel);
     }
@@ -12,6 +12,7 @@ export const TaskHolder = ({ title, issues }) => {
         if(event.keyCode === 13){
             event.preventDefault();
             setIntel(!intel);
+            addTask(index, event.target.value)
         }
     }
     return (
@@ -28,7 +29,7 @@ export const TaskHolder = ({ title, issues }) => {
                     }
                 </ul>
                 {
-                    title === 'Backlog' && intel ? 
+                    index === 0 && intel ? 
                         <input type='text' autoFocus onKeyDown={pressHandler}/> : 
                         <button onClick={clickHolder}>
                             <span>+</span> Add card

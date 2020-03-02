@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import './TaskBar.css';
 import { TaskHolder } from './TaskHolder/TaskHolder';
 import Context from '../../context';
@@ -34,8 +34,19 @@ export const TaskBar = () => {
         ]
     )
 
+    
+
+    function addTask(index, value, state = tasksState) {
+        if (index === 0) {
+            state[0].issues.push({ 
+                id: `task${state[0].issues.length+1}`,                 
+                name: value             
+            })
+        }
+    }
+    
     return (
-        <Context.Provider value = {{ }}>
+        <Context.Provider value = {{ addTask }}>
             <main className="TaskBar">
                 <div className="TaskContainer">
                     {
@@ -45,6 +56,7 @@ export const TaskBar = () => {
                                     title = {item.title}
                                     issues = {item.issues}
                                     key = {index}
+                                    index = {index}
                                 />
                             )
                         })
