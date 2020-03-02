@@ -4,7 +4,7 @@ import { TaskHolder } from './TaskHolder/TaskHolder';
 import Context from '../../context';
 
 export const TaskBar = () => {
-    let [tasksState, setTasksState] = useState(
+    const [tasksState, setTasksState] = useState(
         [    
             {         
                 title: 'Backlog',         
@@ -33,16 +33,25 @@ export const TaskBar = () => {
             },  
         ]
     )
+    const [fieldActivity, setFieldActivity] = useState(new Array(tasksState.length).fill(false))
 
     useEffect(() => {
-        console.log('Current state')
-        tasksState.forEach(item => {
-            console.log(' ',item.title)
-            item.issues.forEach(item => {
-                console.log('   ', item.name)
+        console.log(tasksState, fieldActivity)
+    }, [tasksState, fieldActivity])
+
+    function getIssues(index) {
+        return tasksState[index].issues
+    }
+
+    function changeActivity(index) {
+        setFieldActivity(
+            fieldActivity.map((item, ind) => {
+                return ind === index ? !item : false
             })
-        })
-    }, [tasksState])
+        )
+    }
+
+
 
     function addTask(index, value, state = tasksState, setState = setTasksState) {
         if (index === 0) {
@@ -58,7 +67,7 @@ export const TaskBar = () => {
     }
     
     return (
-        <Context.Provider value = {{ addTask }}>
+        <Context.Provider value = {{ addTask, changeActivity, getIssues}}>
             <main className="TaskBar">
                 <div className="TaskContainer">
                     {
@@ -69,6 +78,7 @@ export const TaskBar = () => {
                                     issues = {item.issues}
                                     key = {index}
                                     index = {index}
+                                    activity = {fieldActivity[index]}
                                 />
                             )
                         })

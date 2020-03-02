@@ -3,7 +3,10 @@ $lightBlueColor: lighten($blueColor, 10%);
 $grayColor:#EBECF0;
 $addCardColor:#5E6C84;
 $addCardActiveColor: invert($addCardColor);
-
+@mixin activeTransform {
+    transform: translateY(1px);
+    filter: saturate(150%);
+}
 @mixin grayBlockMixin {
     background: $grayColor;
     color: black;
@@ -14,15 +17,15 @@ $addCardActiveColor: invert($addCardColor);
     color: black;
     border-radius: 15px;
 } 
-@mixin whiteBlockMixin{
+@mixin whiteBlockMixin {
     background: white;
     border-radius: 10px;
 }
-@mixin blueBlockMixin{
+@mixin blueBlockMixin {
     background: $blueColor;
     color: white;
 }
-@mixin lightBlueBlockMixin{
+@mixin lightBlueBlockMixin { 
     background: $lightBlueColor;
     color: white;
 }
@@ -55,6 +58,16 @@ body, html, #root, .App {
             li {
                 @include whiteBlockMixin; 
             }
+            .previousItem {
+                @include lightBlueBlockMixin;
+                &:hover {
+                    background-color: invert($lightBlueColor);
+                    cursor: pointer;
+                }
+                &:active {
+                    @include activeTransform;
+                }
+            }
             input {
                 border-radius: 10px;
                 font-size: 1rem;
@@ -73,8 +86,7 @@ body, html, #root, .App {
                     outline: none;
                 }
                 &:active {
-                    transform: translateY(1px);
-                    filter: saturate(150%);
+                    @include activeTransform;
                     color: $addCardActiveColor;
                 }
             }

@@ -2,17 +2,39 @@ import React, {useContext, useState} from 'react';
 import './TaskHolder.css';
 import Context from '../../../context';
 
-export const TaskHolder = ({ title, issues, index }) => {
-    const [intel, setIntel] = useState(false);
-    const { addTask } = useContext(Context)
+export const TaskHolder = ({ title, index, activity }) => {
+    const { addTask, changeActivity, getIssues} = useContext(Context)
+    let previousList = false
+    if (index > 0) {
+        previousList = createPreviousList(index-1);
+    }
+
+    function createPreviousList(index) {
+        const issues = getIssues(index).map((item, index) => {
+            return (
+                <li 
+                    key={item.id} 
+                    className="previousItem" 
+                    onClick={() => {getTracks(index)}}
+                >
+                    {item.name}
+                </li>
+            )
+        })
+        return issues
+    }
+    function getTracks(id) {
+        console.log(id)
+    }
+
     function clickHolder() {
-        setIntel(!intel);
+        changeActivity(index)
     }
     function pressHandler(event) {
         if(event.keyCode === 13){
             event.preventDefault();
-            setIntel(!intel);
-            addTask(index, event.target.value)
+            changeActivity(index)
+            addTask(index, event.target.text)
         }
     }
     return (
@@ -21,7 +43,7 @@ export const TaskHolder = ({ title, issues, index }) => {
             <div className="Task">
                 <ul>
                     {
-                        issues.map(item => {
+                        getIssues(index).map(item => {
                             return (
                                 <li key={item.id}>{item.name}</li>
                             )
@@ -29,8 +51,13 @@ export const TaskHolder = ({ title, issues, index }) => {
                     }
                 </ul>
                 {
-                    index === 0 && intel ? 
-                        <input type='text' autoFocus onKeyDown={pressHandler}/> : 
+                    !previousList && activity && <input type='text' autoFocus onKeyDown={pressHandler}/> 
+                }
+                {
+                    previousList && activity && <ul>{previousList}</ul>
+                }
+                {
+                    !activity && 
                         <button onClick={clickHolder}>
                             <span>+</span> Add card
                         </button>
