@@ -34,14 +34,26 @@ export const TaskBar = () => {
         ]
     )
 
-    
+    useEffect(() => {
+        console.log('Current state')
+        tasksState.forEach(item => {
+            console.log(' ',item.title)
+            item.issues.forEach(item => {
+                console.log('   ', item.name)
+            })
+        })
+    }, [tasksState])
 
-    function addTask(index, value, state = tasksState) {
+    function addTask(index, value, state = tasksState, setState = setTasksState) {
         if (index === 0) {
-            state[0].issues.push({ 
+            let [stateItem, ...stateResidue] = state
+            
+            stateItem.issues.push({ 
                 id: `task${state[0].issues.length+1}`,                 
                 name: value             
             })
+            const arr = [stateItem]
+            setState(arr.concat(stateResidue))
         }
     }
     
@@ -50,7 +62,7 @@ export const TaskBar = () => {
             <main className="TaskBar">
                 <div className="TaskContainer">
                     {
-                        tasksState.map((item, index) => {
+                        tasksState.map((item, index) => {                          
                             return (
                                 <TaskHolder
                                     title = {item.title}
