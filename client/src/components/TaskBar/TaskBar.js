@@ -4,40 +4,31 @@ import { TaskHolder } from './TaskHolder/TaskHolder';
 import Context from '../../context';
 
 export const TaskBar = () => {
-    const [tasksState, setTasksState] = useState(
-        [    
-            {         
-                title: 'Backlog',         
-                issues: [             
-                    { 
-                        id: 'task1',                 
-                        name: 'Sprint bugfix'             
-                    },
-                    { 
-                        id: 'task2',                 
-                        name: 'Sprint bugfix'             
-                    }            
-                ],   
-            },  
-            {         
-                title: 'Ready',         
-                issues: []  
-            },  
-            {         
-                title: 'In progress',         
-                issues: []  
-            },  
-            {         
-                title: 'Finished',         
-                issues: []  
-            },  
-        ]
+    const titles = ['Backlog', 'Ready', 'In progress', 'Finished']
+    const kanbanInfoJSON = localStorage.getItem('kanbanInfo')
+
+    const [tasksState, setTasksState] = useState( 
+        kanbanInfoJSON 
+            ? JSON.parse(kanbanInfoJSON).tasksState
+            : titles.map( item => {
+                return {         
+                    title: item,         
+                    issues: []   
+                }
+            })
     )
+    let [counter, setCounter] = useState(
+        kanbanInfoJSON 
+            ? JSON.parse(kanbanInfoJSON).counter
+            : 0
+    )
+
     const [fieldActivity, setFieldActivity] = useState(new Array(tasksState.length).fill(false))
-    let [counter, setCounter] = useState(2)
+
     useEffect(() => {
-        console.log(tasksState, fieldActivity)
-    }, [tasksState, fieldActivity])
+        const serialTasksState = JSON.stringify({tasksState, counter})
+        localStorage.setItem('kanbanInfo', serialTasksState)
+    }, [tasksState])
 
     function getIssues(index) {
         return tasksState[index].issues
@@ -73,10 +64,6 @@ export const TaskBar = () => {
                 return it    
             })
         )
-        console.log('new state', tasksState)
-    /*    console.log('newIssues', newIssues)*/
-       /* tasksState[tableIndex+1].issues.push(buff)
-      /*  tasksState[tableIndex].issues = newIssues*/
     }
 
     function addTask(index, value, state = tasksState, setState = setTasksState) {
