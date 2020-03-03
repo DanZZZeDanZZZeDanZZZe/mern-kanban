@@ -9,7 +9,7 @@
 }
 .scrollbarHolder {
     padding-right: .5rem;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .Task {
     width: 100%;
