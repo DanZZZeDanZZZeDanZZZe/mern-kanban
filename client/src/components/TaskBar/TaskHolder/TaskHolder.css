@@ -1,11 +1,15 @@
 .TaskHolder {
-    position: relative;
+    display: flex;
+    flex-direction: column;
     width: 25%;
     margin: 1rem;
-    padding: .5rem;
+    padding: .5rem 0 .5rem .5rem;
     min-width: 200px;
     max-height: 90%;
-    overflow-y: auto;
+}
+.scrollbarHolder {
+    padding-right: .5rem;
+    overflow-y: scroll;
 }
 .Task {
     width: 100%;

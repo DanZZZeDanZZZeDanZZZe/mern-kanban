@@ -37,28 +37,30 @@ export const TaskHolder = ({ title, index, activity }) => {
     return (
         <div className="TaskHolder">
             <span>{title}</span>
-            <div className="Task">
-                <ul>
+            <div className="scrollbarHolder">
+                <div className="Task">
+                    <ul>
+                        {
+                            getIssues(index).map(item => {
+                                return (
+                                    <li key={item.id}>{item.name}</li>
+                                )
+                            })
+                        }
+                    </ul>
                     {
-                        getIssues(index).map(item => {
-                            return (
-                                <li key={item.id}>{item.name}</li>
-                            )
-                        })
+                        !previousList && activity && <input type='text' autoFocus onKeyDown={pressHandler}/> 
                     }
-                </ul>
-                {
-                    !previousList && activity && <input type='text' autoFocus onKeyDown={pressHandler}/> 
-                }
-                {
-                    previousList && activity && <ul>{previousList}</ul>
-                }
-                {
-                    !activity && 
-                        <button onClick={clickHolder}>
-                            <span>+</span> Add card
-                        </button>
-                }
+                    {
+                        previousList && activity && <ul>{previousList}</ul>
+                    }
+                    {
+                        !activity && 
+                            <button onClick={clickHolder}>
+                                <span>+</span> Add card
+                            </button>
+                    }
+                </div>
             </div>
         </div>
     )
