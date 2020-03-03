@@ -5,6 +5,7 @@
     padding: .5rem;
     min-width: 200px;
     max-height: 90%;
+    overflow-y: auto;
 }
 .Task {
     width: 100%;

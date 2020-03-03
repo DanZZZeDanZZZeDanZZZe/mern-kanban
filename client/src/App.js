@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.scss';
+import './additionalStyles.css';
 import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/Footer/Footer';
 import { useRoutes } from './routes';
