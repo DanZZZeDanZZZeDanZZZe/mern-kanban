@@ -34,7 +34,7 @@ export const TaskBar = () => {
         ]
     )
     const [fieldActivity, setFieldActivity] = useState(new Array(tasksState.length).fill(false))
-
+    let [counter, setCounter] = useState(2)
     useEffect(() => {
         console.log(tasksState, fieldActivity)
     }, [tasksState, fieldActivity])
@@ -51,14 +51,40 @@ export const TaskBar = () => {
         )
     }
 
+    function raisTheTask(taskIndex, tableIndex) {
+        changeActivity(tableIndex + 1)
 
+        let buff = {}
+        const newIssues = tasksState[tableIndex].issues.filter((it, ind) => {
+            if (ind === taskIndex) {
+                buff = it
+                return false
+            }  
+            return true
+        })
+        setTasksState(
+            tasksState.map((it, ind) => {
+                if (tableIndex === ind) {
+                    it.issues = newIssues
+                } 
+                if (tableIndex + 1 === ind) {
+                    it.issues.push(buff)
+                } 
+                return it    
+            })
+        )
+        console.log('new state', tasksState)
+    /*    console.log('newIssues', newIssues)*/
+       /* tasksState[tableIndex+1].issues.push(buff)
+      /*  tasksState[tableIndex].issues = newIssues*/
+    }
 
     function addTask(index, value, state = tasksState, setState = setTasksState) {
         if (index === 0) {
             let [stateItem, ...stateResidue] = state
-            
+            setCounter(++counter)
             stateItem.issues.push({ 
-                id: `task${state[0].issues.length+1}`,                 
+                id: `task${counter}`,                 
                 name: value             
             })
             const arr = [stateItem]
@@ -67,7 +93,7 @@ export const TaskBar = () => {
     }
     
     return (
-        <Context.Provider value = {{ addTask, changeActivity, getIssues}}>
+        <Context.Provider value = {{ addTask, changeActivity, getIssues, raisTheTask}}>
             <main className="TaskBar">
                 <div className="TaskContainer">
                     {

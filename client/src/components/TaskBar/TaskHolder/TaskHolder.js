@@ -3,30 +3,27 @@ import './TaskHolder.css';
 import Context from '../../../context';
 
 export const TaskHolder = ({ title, index, activity }) => {
-    const { addTask, changeActivity, getIssues} = useContext(Context)
+    const { addTask, changeActivity, getIssues, raisTheTask} = useContext(Context)
     let previousList = false
     if (index > 0) {
         previousList = createPreviousList(index-1);
     }
 
     function createPreviousList(index) {
-        const issues = getIssues(index).map((item, index) => {
+        const issues = getIssues(index).map((it, ind) => {
             return (
                 <li 
-                    key={item.id} 
+                    key={it.id} 
                     className="previousItem" 
-                    onClick={() => {getTracks(index)}}
+                    onClick={() => {raisTheTask(ind, index)}}
                 >
-                    {item.name}
+                    {it.name}
                 </li>
             )
         })
         return issues
     }
-    function getTracks(id) {
-        console.log(id)
-    }
-
+    
     function clickHolder() {
         changeActivity(index)
     }
@@ -34,7 +31,7 @@ export const TaskHolder = ({ title, index, activity }) => {
         if(event.keyCode === 13){
             event.preventDefault();
             changeActivity(index)
-            addTask(index, event.target.text)
+            addTask(index, event.target.value)
         }
     }
     return (
