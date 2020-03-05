@@ -49,14 +49,17 @@ export const TaskHolder = ({ title, index, activity }) => {
                         }
                     </ul>
                     {
-                        !previousList && activity && <input type='text' autoFocus onKeyDown={pressHandler}/> 
+                        !previousList && activity.field && <input type='text' autoFocus onKeyDown={pressHandler}/> 
                     }
                     {
-                        previousList && activity && <ul>{previousList}</ul>
+                        previousList && activity.field && <ul>{previousList}</ul>
                     }
                     {
-                        !activity && 
-                            <button onClick={clickHolder}>
+                        !activity.field && 
+                            <button 
+                                onClick={clickHolder} 
+                                disabled={!activity.button}
+                            >
                                 <span>+</span> Add card
                             </button>
                     }

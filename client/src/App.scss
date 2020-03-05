@@ -89,6 +89,10 @@ body, html, #root, .App {
                     @include activeTransform;
                     color: $addCardActiveColor;
                 }
+                &:disabled {
+                    color: lighten($addCardActiveColor, 30%);
+                    cursor: default;
+                }
             }
         }
 

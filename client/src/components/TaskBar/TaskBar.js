@@ -24,11 +24,27 @@ export const TaskBar = () => {
     )
 
     const [fieldActivity, setFieldActivity] = useState(new Array(tasksState.length).fill(false))
+    const [buttonsActivity, setButtonsActivity] = useState(
+        () => {
+            let arr = new Array(tasksState.length).fill(null)
+            return mutateButtonsActivity(arr)
+        }
+    )
 
     useEffect(() => {
         const serialTasksState = JSON.stringify({tasksState, counter})
         localStorage.setItem('kanbanInfo', serialTasksState)
+
+        setButtonsActivity(mutateButtonsActivity(buttonsActivity))
     }, [tasksState])
+
+    function mutateButtonsActivity(buttonsActivity) {
+        return buttonsActivity.map((item, index) => {
+            if (index === 0 ) return true;
+            if (tasksState[index-1].issues.length > 0) return true
+            return false 
+        })
+    }
 
     function getIssues(index) {
         return tasksState[index].issues
@@ -78,7 +94,7 @@ export const TaskBar = () => {
             setState(arr.concat(stateResidue))
         }
     }
-    
+
     return (
         <Context.Provider value = {{ addTask, changeActivity, getIssues, raisTheTask}}>
             <main className="TaskBar">
@@ -91,7 +107,10 @@ export const TaskBar = () => {
                                     issues = {item.issues}
                                     key = {index}
                                     index = {index}
-                                    activity = {fieldActivity[index]}
+                                    activity = {{
+                                        field: fieldActivity[index],
+                                        button: buttonsActivity[index]
+                                    }}
                                 />
                             )
                         })
