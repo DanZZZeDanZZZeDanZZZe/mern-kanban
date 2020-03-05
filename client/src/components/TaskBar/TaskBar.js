@@ -2,6 +2,7 @@ import React, { useState, useEffect} from 'react';
 import './TaskBar.css';
 import { TaskHolder } from './TaskHolder/TaskHolder';
 import Context from '../../context';
+import { TaskInfo } from './TaskInfo/TaskInfo';
 
 export const TaskBar = () => {
     const titles = ['Backlog', 'Ready', 'In progress', 'Finished']
@@ -98,7 +99,7 @@ export const TaskBar = () => {
     return (
         <Context.Provider value = {{ addTask, changeActivity, getIssues, raisTheTask}}>
             <main className="TaskBar">
-                <div className="TaskContainer">
+                {!true && <div className="TaskContainer">
                     {
                         tasksState.map((item, index) => {                          
                             return (
@@ -115,7 +116,8 @@ export const TaskBar = () => {
                             )
                         })
                     }
-                </div>
+                </div>}
+                {!false && <TaskInfo/>}
             </main>
         </Context.Provider>
     )

@@ -1,0 +1,14 @@
+.TaskInfo {
+    height: calc(100% - 1rem);
+    width: calc(100% - 1rem);
+    display: flex;
+    flex-direction: column;
+}
+
+.TaskInfo div {
+    height: 20%;
+}
+
+.TaskInfo div:nth-child(2) {
+    height: 60%;
+}

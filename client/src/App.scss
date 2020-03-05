@@ -20,6 +20,7 @@ $addCardActiveColor: invert($addCardColor);
 @mixin whiteBlockMixin {
     background: white;
     border-radius: 10px;
+    color: black;
 }
 @mixin blueBlockMixin {
     background: $blueColor;
@@ -54,6 +55,9 @@ body, html, #root, .App {
     }
     .TaskBar {
         @include lightBlueBlockMixin;
+        .TaskInfo {
+            @include whiteBlockMixin;
+        }
         .TaskHolder {
             li {
                 @include whiteBlockMixin; 
