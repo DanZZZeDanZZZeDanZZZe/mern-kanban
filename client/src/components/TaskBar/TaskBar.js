@@ -24,6 +24,7 @@ export const TaskBar = () => {
             : 0
     )
 
+    const [taskId, setTaskId] = useState(null);
     const [fieldActivity, setFieldActivity] = useState(new Array(tasksState.length).fill(false))
     const [buttonsActivity, setButtonsActivity] = useState(
         () => {
@@ -31,6 +32,10 @@ export const TaskBar = () => {
             return mutateButtonsActivity(arr)
         }
     )
+
+    useEffect(() => {
+        console.log('taskId', taskId)
+    }, [taskId]);
 
     useEffect(() => {
         const serialTasksState = JSON.stringify({tasksState, counter})
@@ -97,9 +102,9 @@ export const TaskBar = () => {
     }
 
     return (
-        <Context.Provider value = {{ addTask, changeActivity, getIssues, raisTheTask}}>
+        <Context.Provider value = {{ addTask, changeActivity, getIssues, raisTheTask, taskId, setTaskId}}>
             <main className="TaskBar">
-                {!true && <div className="TaskContainer">
+                {true && <div className="TaskContainer">
                     {
                         tasksState.map((item, index) => {                          
                             return (
@@ -117,7 +122,7 @@ export const TaskBar = () => {
                         })
                     }
                 </div>}
-                {!false && <TaskInfo/>}
+                {false && <TaskInfo/>}
             </main>
         </Context.Provider>
     )

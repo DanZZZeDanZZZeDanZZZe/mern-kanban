@@ -3,7 +3,8 @@ import './TaskHolder.css';
 import Context from '../../../context';
 
 export const TaskHolder = ({ title, index, activity }) => {
-    const { addTask, changeActivity, getIssues, raisTheTask} = useContext(Context)
+    const { addTask, changeActivity, getIssues, raisTheTask, setTaskId} = useContext(Context)
+
     let previousList = false
     if (index > 0) {
         previousList = createPreviousList(index-1);
@@ -34,6 +35,7 @@ export const TaskHolder = ({ title, index, activity }) => {
             addTask(index, event.target.value)
         }
     }
+
     return (
         <div className="TaskHolder">
             <span>{title}</span>
@@ -43,7 +45,12 @@ export const TaskHolder = ({ title, index, activity }) => {
                         {
                             getIssues(index).map(item => {
                                 return (
-                                    <li key={item.id}>{item.name}</li>
+                                    <li 
+                                        key={item.id}
+                                        onClick={()=> {setTaskId(item.id)}}
+                                    >
+                                        {item.name}
+                                    </li>
                                 )
                             })
                         }

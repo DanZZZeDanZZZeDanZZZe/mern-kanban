@@ -1,8 +1,9 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import './TaskInfo.css';
-import Context from '../../../context';
+
 
 export const TaskInfo = () => {
+
     return (
         <div className="TaskInfo">
             <div>
