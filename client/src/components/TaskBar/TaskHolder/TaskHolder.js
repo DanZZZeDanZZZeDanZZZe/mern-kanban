@@ -47,7 +47,10 @@ export const TaskHolder = ({ title, index, activity }) => {
                                 return (
                                     <li 
                                         key={item.id}
-                                        onClick={()=> {setTaskId(item.id)}}
+                                        onClick={()=> {
+                                            setTaskId(item.id)
+                                            
+                                        }}
                                     >
                                         {item.name}
                                     </li>

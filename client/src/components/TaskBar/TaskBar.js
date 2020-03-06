@@ -102,9 +102,9 @@ export const TaskBar = () => {
     }
 
     return (
-        <Context.Provider value = {{ addTask, changeActivity, getIssues, raisTheTask, taskId, setTaskId}}>
+        <Context.Provider value = {{ addTask, changeActivity, getIssues, raisTheTask, taskId, setTaskId, tasksState}}>
             <main className="TaskBar">
-                {true && <div className="TaskContainer">
+                {taskId === null && <div className="TaskContainer">
                     {
                         tasksState.map((item, index) => {                          
                             return (
@@ -122,7 +122,7 @@ export const TaskBar = () => {
                         })
                     }
                 </div>}
-                {false && <TaskInfo/>}
+                {taskId !== null && <TaskInfo/>}
             </main>
         </Context.Provider>
     )
