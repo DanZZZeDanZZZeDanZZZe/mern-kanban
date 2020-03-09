@@ -11,6 +11,9 @@
 
 .TaskInfo div:nth-child(2) {
     height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
 }
 
 .TaskInfo div:nth-child(1) {
@@ -18,4 +21,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 .5rem;
+}
+
+.TaskInfo textarea {
+    width: 95%;
+    height: 100%;
+    font-size: 1.1rem;
 }
