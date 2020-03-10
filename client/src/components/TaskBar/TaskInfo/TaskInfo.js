@@ -4,34 +4,39 @@ import Context from '../../../context';
 
 
 export const TaskInfo = () => {
-    const [ titleState, setTitleState] = useState()
+    const { setTaskId, taskId, tasksState, setTasksState} = useContext(Context)
 
-    const [ textareaState, setTextareaState ] = useState({
-        readOnly: false,
-        placeholder: "Enter task description."
+    const [ currentElementState, setCurrentElementState] = useState(findInfo(taskId, tasksState))
+    const [ textareaState, setTextareaState ] = useState(()=> {
+        const text = tasksState[currentElementState.tableIndex].issues[currentElementState.taskIndex].text
+        if (text) {
+            return {
+                readOnly: true,
+                placeholder: text
+            }
+        } else {
+            return {
+                readOnly: false,
+                placeholder: "Enter task description."
+            }
+        }
+        
     })
 
-    const { setTaskId, taskId, tasksState, setTasksState} = useContext(Context)
-    
-    function findTitle(id, state) {
-        state.forEach(element => {
-            element.issues.forEach(el => {
+    function findInfo(id, state) {
+        const currentElement = state.reduce((previousValue, item, index) => {
+            item.issues.forEach((el, ind) => {
                 if (el.id === id ) {
-                    setTitleState(el.name)
-                    if (el.text) {
-                        setTextareaState ({
-                            readOnly: true,
-                            placeholder: el.text
-                        })
+                    previousValue = {
+                        tableIndex: index,
+                        taskIndex: ind
                     }
                 }
-            })
-        });
+            }) 
+            if (previousValue) return previousValue 
+        }) 
+        return currentElement
     }
-
-    useEffect(() => {
-        findTitle(taskId, tasksState)
-    }, []);
 
     function pressHandler(event) {
         if (event.keyCode === 13){
@@ -39,16 +44,20 @@ export const TaskInfo = () => {
                 ...textareaState,
                 readOnly: true
             })
-            console.log('33', taskId.replace('task', ''))
-            /*setTasksState(...setTasksState, tasksState[elementState.el].issues[elementState])*/
-
-            
+                tasksState[currentElementState.tableIndex]
+                    .issues[currentElementState.taskIndex]
+                    .text = event.target.value
         }
     }
+    
     return (
         <div className="TaskInfo">
             <div>
-                <h3>{/*findTitle(taskId, tasksState)*/titleState}</h3>
+                <h3>{
+                    tasksState[currentElementState.tableIndex]
+                    .issues[currentElementState.taskIndex]
+                    .name
+                }</h3>
                 <button 
                     onClick = {() => {
                         setTaskId(null)
