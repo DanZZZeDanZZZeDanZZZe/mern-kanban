@@ -7,18 +7,21 @@ import { useRoutes } from './routes';
 import {
   BrowserRouter as Router,
 } from "react-router-dom";
+import { TaskBarState } from './context/TaskBar/TaskBarState';
 
 function App() {
   const isAuthenticated = true;
   const routes = useRoutes(isAuthenticated)
   return (
-    <Router>
-      <div className="App">
-        {isAuthenticated && <Navbar/>}
-          {routes}
-        {isAuthenticated && <Footer/>}
-      </div>
-    </Router>
+    <TaskBarState>
+      <Router>
+        <div className="App">
+          {isAuthenticated && <Navbar/>}
+            {routes}
+          {isAuthenticated && <Footer/>}
+        </div>
+      </Router>
+    </TaskBarState>
   );
 }
 
