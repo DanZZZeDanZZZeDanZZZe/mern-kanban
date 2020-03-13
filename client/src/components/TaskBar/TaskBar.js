@@ -50,30 +50,6 @@ export const TaskBar = () => {
         )
     }
 
-    function raisTheTask(taskIndex, tableIndex) {
-        changeActivity(tableIndex + 1)
-
-        let buff = {}
-        const newIssues = tasksState[tableIndex].issues.filter((it, ind) => {
-            if (ind === taskIndex) {
-                buff = it
-                return false
-            }  
-            return true
-        })
-        setTasksState(
-            tasksState.map((it, ind) => {
-                if (tableIndex === ind) {
-                    it.issues = newIssues
-                } 
-                if (tableIndex + 1 === ind) {
-                    it.issues.push(buff)
-                } 
-                return it    
-            })
-        )
-    }
-
     function addTask(index, value, state = tasksState, setState = setTasksState) {
         if (index === 0) {
             let [stateItem, ...stateResidue] = state
@@ -88,7 +64,7 @@ export const TaskBar = () => {
     }
 
     return (
-        <Context.Provider value = {{ addTask, changeActivity, getIssues, raisTheTask, taskId, setTaskId}}>
+        <Context.Provider value = {{ addTask, changeActivity, getIssues, taskId, setTaskId}}>
             <main className="TaskBar">
                 {taskId === null && <div className="TaskContainer">
                     {

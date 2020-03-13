@@ -1,7 +1,7 @@
 import React, {useReducer, useState, useEffect} from 'react'
 import { taskBarContext } from './taskBarContext'
 import { taskBarReducer } from './taskBarReducer'
-import { SET_STATE } from '../types'
+import { SET_STATE, RAIS_THE_TASK } from '../types'
 
 export const TaskBarState = ({children}) => {
     const titles = ['Backlog', 'Ready', 'In progress', 'Finished']
@@ -17,7 +17,6 @@ export const TaskBarState = ({children}) => {
             }
         })
     
-
     const [tasksState, dispatch] = useReducer(
         taskBarReducer, initTasksState
         
@@ -29,20 +28,18 @@ export const TaskBarState = ({children}) => {
             type: SET_STATE,
             payload: newstate
         })
-       // console.log('newstate', newstate)
+    }
+    
+    function raisTheTask(taskIndex, tableIndex) {
+        dispatch({
+            type: RAIS_THE_TASK,
+            payload: {
+                taskIndex,
+                tableIndex
+            }
+        })
     }
 
-    /*const [tasksState, setTasksState] = useState( 
-        kanbanInfoJSON ?
-            JSON.parse(kanbanInfoJSON).tasksState
-            :titles.map( item => {
-                return {         
-                    title: item,         
-                    issues: []   
-                }
-            })
-    )*/
-    
     const [counter, setCounter] = useState(kanbanInfoJSON 
         ? JSON.parse(kanbanInfoJSON).counter
         : 0
@@ -58,31 +55,10 @@ export const TaskBarState = ({children}) => {
             tasksState, 
             setTasksState,
             counter,
-            setCounter
+            setCounter,
+            raisTheTask
         }}>
             {children}
         </taskBarContext.Provider>
     )
 }
-
-
-/*export const AlertState = ({children}) => {
-    const [state, dispatch] = useReducer(alertReducer, {visible: false})
-
-    const show = (text, type = 'warning') => {
-        dispatch({
-            type: SHOW_ALERT,
-            payload: {text, type}
-        })
-    }
-    const hide = () => dispatch({type: HIDE_ALERT})
-
-    return (
-        <AlertContext.Provider value={{
-            show, hide,
-            alert: state
-        }}>
-            {children}
-        </AlertContext.Provider>
-    )
-}*/
