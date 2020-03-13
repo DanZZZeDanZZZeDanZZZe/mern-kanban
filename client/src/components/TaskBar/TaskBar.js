@@ -11,6 +11,7 @@ export const TaskBar = () => {
     const tasksState = taskBar.tasksState
     const setTasksState = taskBar.setTasksState
     let counter = taskBar.counter
+    const setCounter = taskBar.setCounter
 
     const [taskId, setTaskId] = useState(null);
     const [fieldActivity, setFieldActivity] = useState(new Array(tasksState.length).fill(false))
@@ -76,7 +77,7 @@ export const TaskBar = () => {
     function addTask(index, value, state = tasksState, setState = setTasksState) {
         if (index === 0) {
             let [stateItem, ...stateResidue] = state
-            counter += 1
+            setCounter(counter + 1);
             stateItem.issues.push({ 
                 id: `task${counter}`,                 
                 name: value             

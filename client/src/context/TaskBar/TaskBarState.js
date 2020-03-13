@@ -1,13 +1,38 @@
 import React, {useReducer, useState, useEffect} from 'react'
 import { taskBarContext } from './taskBarContext'
 import { taskBarReducer } from './taskBarReducer'
+import { SET_STATE } from '../types'
 
 export const TaskBarState = ({children}) => {
-   /* const [state, dispatch] = useReducer(taskBarReducer, {visible: false})*/
     const titles = ['Backlog', 'Ready', 'In progress', 'Finished']
     const kanbanInfoJSON = localStorage.getItem('kanbanInfo')
 
-    const [tasksState, setTasksState] = useState( 
+    
+    const initTasksState = kanbanInfoJSON 
+        ? JSON.parse(kanbanInfoJSON).tasksState
+        : titles.map( item => {
+            return {         
+                title: item,         
+                issues: []   
+            }
+        })
+    
+
+    const [tasksState, dispatch] = useReducer(
+        taskBarReducer, initTasksState
+        
+    )
+    console.log(tasksState)
+
+    const setTasksState = (newstate, type = 'setState') => {
+        dispatch({
+            type: SET_STATE,
+            payload: newstate
+        })
+       // console.log('newstate', newstate)
+    }
+
+    /*const [tasksState, setTasksState] = useState( 
         kanbanInfoJSON ?
             JSON.parse(kanbanInfoJSON).tasksState
             :titles.map( item => {
@@ -16,11 +41,12 @@ export const TaskBarState = ({children}) => {
                     issues: []   
                 }
             })
-    )
+    )*/
     
-    let counter = kanbanInfoJSON 
+    const [counter, setCounter] = useState(kanbanInfoJSON 
         ? JSON.parse(kanbanInfoJSON).counter
         : 0
+    )
     
     useEffect(() => {
         const serialTasksState = JSON.stringify({tasksState, counter})
@@ -31,7 +57,8 @@ export const TaskBarState = ({children}) => {
         <taskBarContext.Provider value = {{
             tasksState, 
             setTasksState,
-            counter
+            counter,
+            setCounter
         }}>
             {children}
         </taskBarContext.Provider>

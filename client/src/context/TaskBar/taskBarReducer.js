@@ -1,4 +1,7 @@
+import { SET_STATE } from "../types"
+
 const handlers = {
+    [SET_STATE]: (state, {payload}) => ([...payload]),
     DEFAULT: state => state
 }
 

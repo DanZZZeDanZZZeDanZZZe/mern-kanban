@@ -11,10 +11,8 @@ export const TaskInfo = () => {
     const tasksState = taskBar.tasksState
 
     const [ currentElementState, setCurrentElementState] = useState(findInfo(taskId, tasksState))
-    console.log('s', tasksState)
-    console.log('c', currentElementState)
+
     const [ textareaState, setTextareaState ] = useState(()=> {
-        console.log(tasksState[currentElementState.tableIndex].issues[currentElementState.taskIndex])
         const text = tasksState[currentElementState.tableIndex].issues[currentElementState.taskIndex].text
         if (text) {
             return {
