@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react'
+import React, {useReducer, useState, useEffect} from 'react'
 import { taskBarContext } from './taskBarContext'
 import { taskBarReducer } from './taskBarReducer'
 
@@ -8,9 +8,9 @@ export const TaskBarState = ({children}) => {
     const kanbanInfoJSON = localStorage.getItem('kanbanInfo')
 
     const [tasksState, setTasksState] = useState( 
-        kanbanInfoJSON 
-            ? JSON.parse(kanbanInfoJSON).tasksState
-            : titles.map( item => {
+        kanbanInfoJSON ?
+            JSON.parse(kanbanInfoJSON).tasksState
+            :titles.map( item => {
                 return {         
                     title: item,         
                     issues: []   
@@ -18,12 +18,21 @@ export const TaskBarState = ({children}) => {
             })
     )
     
+    let counter = kanbanInfoJSON 
+        ? JSON.parse(kanbanInfoJSON).counter
+        : 0
+    
+    useEffect(() => {
+        const serialTasksState = JSON.stringify({tasksState, counter})
+        localStorage.setItem('kanbanInfo', serialTasksState)
+    }, [tasksState])
+
     return (
-        <taskBarContext.Provider value = {
+        <taskBarContext.Provider value = {{
             tasksState, 
             setTasksState,
-            kanbanInfoJSON 
-        }>
+            counter
+        }}>
             {children}
         </taskBarContext.Provider>
     )

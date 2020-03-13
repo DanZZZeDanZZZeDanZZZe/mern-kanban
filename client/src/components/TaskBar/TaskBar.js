@@ -1,28 +1,16 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 import './TaskBar.css';
 import { TaskHolder } from './TaskHolder/TaskHolder';
 import Context from '../../context';
 import { TaskInfo } from './TaskInfo/TaskInfo';
+import { taskBarContext } from '../../context/TaskBar/taskBarContext';
 
 export const TaskBar = () => {
-    const titles = ['Backlog', 'Ready', 'In progress', 'Finished']
-    const kanbanInfoJSON = localStorage.getItem('kanbanInfo')
+    const taskBar = useContext(taskBarContext)
 
-    const [tasksState, setTasksState] = useState( 
-        kanbanInfoJSON 
-            ? JSON.parse(kanbanInfoJSON).tasksState
-            : titles.map( item => {
-                return {         
-                    title: item,         
-                    issues: []   
-                }
-            })
-    )
-    let [counter, setCounter] = useState(
-        kanbanInfoJSON 
-            ? JSON.parse(kanbanInfoJSON).counter
-            : 0
-    )
+    const tasksState = taskBar.tasksState
+    const setTasksState = taskBar.setTasksState
+    let counter = taskBar.counter
 
     const [taskId, setTaskId] = useState(null);
     const [fieldActivity, setFieldActivity] = useState(new Array(tasksState.length).fill(false))
@@ -38,9 +26,6 @@ export const TaskBar = () => {
     }, [taskId]);
 
     useEffect(() => {
-        const serialTasksState = JSON.stringify({tasksState, counter})
-        localStorage.setItem('kanbanInfo', serialTasksState)
-
         setButtonsActivity(mutateButtonsActivity(buttonsActivity))
     }, [tasksState])
 
@@ -91,7 +76,7 @@ export const TaskBar = () => {
     function addTask(index, value, state = tasksState, setState = setTasksState) {
         if (index === 0) {
             let [stateItem, ...stateResidue] = state
-            setCounter(++counter)
+            counter += 1
             stateItem.issues.push({ 
                 id: `task${counter}`,                 
                 name: value             
@@ -102,7 +87,7 @@ export const TaskBar = () => {
     }
 
     return (
-        <Context.Provider value = {{ addTask, changeActivity, getIssues, raisTheTask, taskId, setTaskId, tasksState}}>
+        <Context.Provider value = {{ addTask, changeActivity, getIssues, raisTheTask, taskId, setTaskId}}>
             <main className="TaskBar">
                 {taskId === null && <div className="TaskContainer">
                     {

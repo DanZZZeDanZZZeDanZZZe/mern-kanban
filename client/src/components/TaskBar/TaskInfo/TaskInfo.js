@@ -1,13 +1,20 @@
 import React, {useContext, useState, useEffect} from 'react';
 import './TaskInfo.css';
 import Context from '../../../context';
+import { taskBarContext } from '../../../context/TaskBar/taskBarContext';
 
 
 export const TaskInfo = () => {
-    const { setTaskId, taskId, tasksState, setTasksState} = useContext(Context)
+    const { setTaskId, taskId} = useContext(Context)
+    const taskBar = useContext(taskBarContext)
+
+    const tasksState = taskBar.tasksState
 
     const [ currentElementState, setCurrentElementState] = useState(findInfo(taskId, tasksState))
+    console.log('s', tasksState)
+    console.log('c', currentElementState)
     const [ textareaState, setTextareaState ] = useState(()=> {
+        console.log(tasksState[currentElementState.tableIndex].issues[currentElementState.taskIndex])
         const text = tasksState[currentElementState.tableIndex].issues[currentElementState.taskIndex].text
         if (text) {
             return {
@@ -24,7 +31,9 @@ export const TaskInfo = () => {
     })
 
     function findInfo(id, state) {
-        const currentElement = state.reduce((previousValue, item, index) => {
+        let previousValue;
+
+        state.forEach((item, index) => {
             item.issues.forEach((el, ind) => {
                 if (el.id === id ) {
                     previousValue = {
@@ -33,9 +42,9 @@ export const TaskInfo = () => {
                     }
                 }
             }) 
-            if (previousValue) return previousValue 
-        }) 
-        return currentElement
+        })
+
+        return previousValue
     }
 
     function pressHandler(event) {
