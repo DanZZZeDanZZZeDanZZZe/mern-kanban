@@ -4,9 +4,10 @@ import Context from '../../../context';
 import { taskBarContext } from '../../../context/TaskBar/taskBarContext';
 
 export const TaskHolder = ({ title, index, activity }) => {
-    const { addTask, changeActivity, getIssues, setTaskId} = useContext(Context)
-    const taskBar = useContext(taskBarContext)
-    const raisTheTask = taskBar.raisTheTask
+    const { /*addTask,*/ changeActivity, getIssues, setTaskId} = useContext(Context)
+    //const taskBar = useContext(taskBarContext)
+    //const raisTheTask = taskBar.raisTheTask
+    const {raisTheTask, addTask} = useContext(taskBarContext)
     let previousList = false
     if (index > 0) {
         previousList = createPreviousList(index-1);

@@ -50,21 +50,8 @@ export const TaskBar = () => {
         )
     }
 
-    function addTask(index, value, state = tasksState, setState = setTasksState) {
-        if (index === 0) {
-            let [stateItem, ...stateResidue] = state
-            setCounter(counter + 1);
-            stateItem.issues.push({ 
-                id: `task${counter}`,                 
-                name: value             
-            })
-            const arr = [stateItem]
-            setState(arr.concat(stateResidue))
-        }
-    }
-
     return (
-        <Context.Provider value = {{ addTask, changeActivity, getIssues, taskId, setTaskId}}>
+        <Context.Provider value = {{ /*addTask,*/ changeActivity, getIssues, taskId, setTaskId}}>
             <main className="TaskBar">
                 {taskId === null && <div className="TaskContainer">
                     {

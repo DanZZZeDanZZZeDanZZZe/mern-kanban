@@ -1,7 +1,7 @@
 import React, {useReducer, useState, useEffect} from 'react'
 import { taskBarContext } from './taskBarContext'
 import { taskBarReducer } from './taskBarReducer'
-import { SET_STATE, RAIS_THE_TASK } from '../types'
+import { SET_STATE, RAIS_THE_TASK, ADD_TASK } from '../types'
 
 export const TaskBarState = ({children}) => {
     const titles = ['Backlog', 'Ready', 'In progress', 'Finished']
@@ -40,6 +40,20 @@ export const TaskBarState = ({children}) => {
         })
     }
 
+    function addTask(index, value) {
+        if (index === 0) {
+            setCounter(counter + 1);
+            
+            dispatch({
+                type: ADD_TASK,
+                payload: { 
+                    value,
+                    counter
+                }
+            })
+        }
+    }
+
     const [counter, setCounter] = useState(kanbanInfoJSON 
         ? JSON.parse(kanbanInfoJSON).counter
         : 0
@@ -56,8 +70,9 @@ export const TaskBarState = ({children}) => {
             setTasksState,
             counter,
             setCounter,
-            raisTheTask
-        }}>
+            raisTheTask,
+            addTask
+        }}>    
             {children}
         </taskBarContext.Provider>
     )
