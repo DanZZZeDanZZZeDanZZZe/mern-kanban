@@ -1,4 +1,10 @@
 .Footer {
     height: 8%;
     width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.Footer p {
+    margin-left: .5rem;
 }
