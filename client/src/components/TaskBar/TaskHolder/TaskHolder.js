@@ -3,8 +3,8 @@ import './TaskHolder.css';
 import Context from '../../../context';
 import { taskBarContext } from '../../../context/TaskBar/taskBarContext';
 
-export const TaskHolder = ({ title, index, activity }) => {
-    const {changeActivity, getIssues, setTaskId} = useContext(Context)
+export const TaskHolder = ({ title, index, activity, issues }) => {
+    const {changeActivity, setTaskId} = useContext(Context)
     const {raisTheTask, addTask} = useContext(taskBarContext)
     let previousList = false
     if (index > 0) {
@@ -12,7 +12,7 @@ export const TaskHolder = ({ title, index, activity }) => {
     }
 
     function createPreviousList(index) {
-        const issues = getIssues(index).map((it, ind) => {
+        const taskList = issues.map((it, ind) => {
             return (
                 <li 
                     key={it.id} 
@@ -26,7 +26,7 @@ export const TaskHolder = ({ title, index, activity }) => {
                 </li>
             )
         })
-        return issues
+        return taskList
     }
     
     function clickHolder() {
@@ -47,7 +47,7 @@ export const TaskHolder = ({ title, index, activity }) => {
                 <div className="Task">
                     <ul>
                         {
-                            getIssues(index).map(item => {
+                            issues.map(item => {
                                 return (
                                     <li 
                                         key={item.id}
