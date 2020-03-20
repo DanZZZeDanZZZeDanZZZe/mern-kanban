@@ -9,9 +9,6 @@ export const TaskBar = () => {
     const taskBar = useContext(taskBarContext)
 
     const tasksState = taskBar.tasksState
-    const setTasksState = taskBar.setTasksState
-    let counter = taskBar.counter
-    const setCounter = taskBar.setCounter
 
     const [taskId, setTaskId] = useState(null);
     const [fieldActivity, setFieldActivity] = useState(new Array(tasksState.length).fill(false))
@@ -51,7 +48,7 @@ export const TaskBar = () => {
     }
 
     return (
-        <Context.Provider value = {{ /*addTask,*/ changeActivity, getIssues, taskId, setTaskId}}>
+        <Context.Provider value = {{ changeActivity, getIssues, taskId, setTaskId}}>
             <main className="TaskBar">
                 {taskId === null && <div className="TaskContainer">
                     {
