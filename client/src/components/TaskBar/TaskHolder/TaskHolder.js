@@ -3,16 +3,17 @@ import './TaskHolder.css';
 import Context from '../../../context';
 import { taskBarContext } from '../../../context/TaskBar/taskBarContext';
 
-export const TaskHolder = ({ title, index, activity, issues }) => {
+export const TaskHolder = ({ item, index, activity }) => {
+    const {title, issues} = item
     const {changeActivity, setTaskId} = useContext(Context)
-    const {raisTheTask, addTask} = useContext(taskBarContext)
+    const {raisTheTask, addTask, getIssues} = useContext(taskBarContext)
     let previousList = false
     if (index > 0) {
         previousList = createPreviousList(index-1);
     }
 
     function createPreviousList(index) {
-        const taskList = issues.map((it, ind) => {
+        const taskList = getIssues(index).map((it, ind) => {
             return (
                 <li 
                     key={it.id} 

@@ -21,15 +21,18 @@ export const TaskBarState = ({children}) => {
         taskBarReducer, initTasksState
         
     )
-    console.log(tasksState)
 
-    const setTasksState = (newstate, type = 'setState') => {
+    const setTasksState = (newstate) => {
         dispatch({
             type: SET_STATE,
             payload: newstate
         })
     }
     
+    const getIssues = (index) => {
+        return tasksState[index].issues
+    }
+
     function raisTheTask(taskIndex, tableIndex) {
         dispatch({
             type: RAIS_THE_TASK,
@@ -71,7 +74,8 @@ export const TaskBarState = ({children}) => {
             counter,
             setCounter,
             raisTheTask,
-            addTask
+            addTask,
+            getIssues
         }}>    
             {children}
         </taskBarContext.Provider>

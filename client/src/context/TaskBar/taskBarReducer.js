@@ -1,7 +1,7 @@
 import { SET_STATE, RAIS_THE_TASK, ADD_TASK } from "../types"
 
 const handlers = {
-    [SET_STATE]: (state, {payload}) => ([...payload]),
+    [SET_STATE]: ({payload}) => ([...payload]),
     [RAIS_THE_TASK]: (state, {payload}) => {
         state[payload.tableIndex].issues = state[payload.tableIndex].issues.filter((it, ind) => {
             if (ind === payload.taskIndex) {

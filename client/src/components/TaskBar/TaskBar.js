@@ -35,10 +35,6 @@ export const TaskBar = () => {
         })
     }
 
-    function getIssues(index) {
-        return tasksState[index].issues
-    }
-
     function changeActivity(index) {
         setFieldActivity(
             fieldActivity.map((item, ind) => {
@@ -48,15 +44,14 @@ export const TaskBar = () => {
     }
 
     return (
-        <Context.Provider value = {{ changeActivity, getIssues, taskId, setTaskId}}>
+        <Context.Provider value = {{ changeActivity, taskId, setTaskId}}>
             <main className="TaskBar">
                 {taskId === null && <div className="TaskContainer">
                     {
                         tasksState.map((item, index) => {                          
                             return (
                                 <TaskHolder
-                                    title = {item.title}
-                                    issues = {item.issues}
+                                    item = {item}
                                     key = {index}
                                     index = {index}
                                     activity = {{
