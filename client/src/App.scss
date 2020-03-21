@@ -30,6 +30,15 @@ $addCardActiveColor: invert($addCardColor);
     background: $lightBlueColor;
     color: white;
 }
+@mixin menuItem {
+    &:hover {
+        background-color: invert($lightBlueColor);
+        cursor: pointer;
+    }
+    &:active {
+        @include activeTransform;
+    }
+}
 @mixin clearButton {
     padding: 0;
     border: none;
@@ -37,6 +46,18 @@ $addCardActiveColor: invert($addCardColor);
     color: inherit;
     background-color: transparent;
     cursor: pointer;
+    &:hover,
+    &:focus {
+        outline: none;
+    }
+    &:active {
+        @include activeTransform;
+        color: $addCardActiveColor;
+    }
+    &:disabled {
+        color: lighten($addCardActiveColor, 30%);
+        cursor: default;
+    }
 }
 body, html, #root, .App {
     width: 100%;
@@ -52,6 +73,20 @@ body, html, #root, .App {
     
     .Navbar {
         @include blueBlockMixin;
+        .UserPanel {
+            .user-button {
+                @include clearButton;
+            }
+            .user-menu ul {
+                list-style-type: none;
+                @include blueBlockMixin;
+                border-radius: 15px;
+                li {
+                    @include whiteBlockMixin;
+                    @include menuItem;
+                }
+            }
+        }
     }
     .TaskBar {
         @include lightBlueBlockMixin;
@@ -84,18 +119,6 @@ body, html, #root, .App {
                 font-weight: bold;
                 span {
                     font-size: 1.5rem;
-                }
-                &:hover,
-                &:focus {
-                    outline: none;
-                }
-                &:active {
-                    @include activeTransform;
-                    color: $addCardActiveColor;
-                }
-                &:disabled {
-                    color: lighten($addCardActiveColor, 30%);
-                    cursor: default;
                 }
             }
         }
