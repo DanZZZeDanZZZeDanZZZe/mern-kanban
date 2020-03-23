@@ -27,3 +27,6 @@
     margin: 5px;
     text-align: center;
 }
+.active > img {
+    transform: scale(1, -1)
+}
