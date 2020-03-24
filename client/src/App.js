@@ -8,12 +8,16 @@ import {
   BrowserRouter as Router,
 } from "react-router-dom";
 import { TaskBarState } from './context/TaskBar/TaskBarState';
+import DialogWindow from './components/DialogWindow/DialogWindow';
+import DialogWindowState from './context/DialogWindow/DialogWindowState';
 
 function App() {
   const isAuthenticated = true;
   const routes = useRoutes(isAuthenticated)
   return (
     <TaskBarState>
+      <DialogWindowState>
+      <DialogWindow/>
       <Router>
         <div className="App">
           {isAuthenticated && <Navbar/>}
@@ -21,6 +25,7 @@ function App() {
           {isAuthenticated && <Footer/>}
         </div>
       </Router>
+      </DialogWindowState>
     </TaskBarState>
   );
 }

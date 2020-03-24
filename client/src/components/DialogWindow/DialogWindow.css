@@ -1,0 +1,22 @@
+.dialog-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.dialog-window {
+    position: absolute;
+    width: 40%;
+    height: 60%;
+    background: chartreuse;
+    min-height: 200px;
+    left: 30%;
+    top: 10%;
+}
+
+.bluer {
+    height: 100%;
+    width: 100%;
+    background: grey;
+    opacity: .5;
+}
