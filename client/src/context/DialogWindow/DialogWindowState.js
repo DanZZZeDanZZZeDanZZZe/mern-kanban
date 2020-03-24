@@ -1,7 +1,7 @@
 import React, { useState, useReducer } from 'react';
 import { dialogWindowContext } from './dialogWindowContext';
 import { dialogWindowReducer } from './dialogWindowReducer';
-import { SHOW_ADD_DIALOG } from '../types';
+import { SHOW_ADD_DIALOG, HIDE_DIALOG } from '../types';
 const DialogWindowState = ({children}) => {
     const [dialogWindowState, dispatch] = useReducer(dialogWindowReducer,{
         visible: false,
@@ -13,10 +13,17 @@ const DialogWindowState = ({children}) => {
         })
     }
 
+    const hideDialog = () => {
+        dispatch ({
+            type: HIDE_DIALOG
+        })
+    }
+
     return (
         <dialogWindowContext.Provider value={{
             dialogWindowState,
-            showAddDialog
+            showAddDialog,
+            hideDialog
         }}>
             {children}
         </dialogWindowContext.Provider>

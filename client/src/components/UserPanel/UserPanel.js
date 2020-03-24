@@ -28,8 +28,8 @@ class UserPanel extends Component {
     render() {
         const { dialogVisible } = this.props
         const { menuButtonActivity } = this.state
-        console.log(dialogVisible)
-        const buttonClasses = menuButtonActivity
+
+        const buttonClasses = menuButtonActivity 
             ? `user-button`
             : `user-button active`
 
@@ -47,7 +47,7 @@ class UserPanel extends Component {
                         {
                             menuButtonActivity && !dialogVisible &&
                             React.Children.map(this.props.children, (item)=>{
-                                return <li>{item}</li>
+                                return <li onClick={this.buttonClickHolder}>{item}</li>
                             })
                         }    
                     </ul>

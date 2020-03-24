@@ -2,16 +2,20 @@
     position: absolute;
     height: 100%;
     width: 100%;
+    z-index: 2;
 }
 
 .dialog-window {
     position: absolute;
     width: 40%;
     height: 60%;
-    background: chartreuse;
     min-height: 200px;
     left: 30%;
     top: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
 }
 
 .bluer {
@@ -19,4 +23,15 @@
     width: 100%;
     background: grey;
     opacity: .5;
+}
+.buttons-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.buttons-container > button {
+    margin-right: .5rem;
+    width: 90px;
+    height: 50px;
 }

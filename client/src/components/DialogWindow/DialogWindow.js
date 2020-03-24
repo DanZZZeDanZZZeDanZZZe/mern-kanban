@@ -3,8 +3,8 @@ import './DialogWindow.css'
 import { dialogWindowContext } from '../../context/DialogWindow/dialogWindowContext'
 
 function DialogWindow() {
-    const {dialogWindowState} = useContext(dialogWindowContext)
-    const {visible} = dialogWindowState
+    const {dialogWindowState, hideDialog} = useContext(dialogWindowContext)
+    const {visible, title} = dialogWindowState
 
     if (!visible) return null
 
@@ -12,7 +12,13 @@ function DialogWindow() {
 
         <div className="dialog-container">
             <div className="bluer"></div>
-            <div className="dialog-window"></div>
+            <div className="dialog-window">
+                <h1>{title}</h1>
+                <div className="buttons-container">
+                    <button>OK</button>
+                    <button onClick={hideDialog}>Сancel</button>
+                </div>
+            </div>
         </div>
     )
 }

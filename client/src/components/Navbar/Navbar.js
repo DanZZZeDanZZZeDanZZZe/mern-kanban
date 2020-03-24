@@ -12,7 +12,6 @@ export const Navbar = () => {
             <UserPanel>
                 {
                     <MenuItem action={showAddDialog}>Add list</MenuItem>
-
                 }
             </UserPanel>
         </nav>

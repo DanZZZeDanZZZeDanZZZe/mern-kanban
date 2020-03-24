@@ -65,12 +65,19 @@ body, html, #root, .App {
     margin: 0px;
     padding: 0px;
 }
+.dialog-window {
+    @include whiteBlockMixin;
+    .buttons-container > button {
+        @include clearButton;
+        @include lightBlueBlockMixin;
+        border-radius: 15px;
+    }
+}
 .App {
     font-size: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
     .Navbar {
         @include blueBlockMixin;
         .UserPanel {
