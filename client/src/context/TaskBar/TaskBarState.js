@@ -1,7 +1,7 @@
 import React, {useReducer, useState, useEffect} from 'react'
 import { taskBarContext } from './taskBarContext'
 import { taskBarReducer } from './taskBarReducer'
-import { SET_STATE, RAIS_THE_TASK, ADD_TASK } from '../types'
+import { SET_STATE, RAIS_THE_TASK, ADD_TASK, ADD_TASK_LIST } from '../types'
 
 export const TaskBarState = ({children}) => {
     const titles = ['Backlog', 'Ready', 'In progress', 'Finished']
@@ -56,6 +56,10 @@ export const TaskBarState = ({children}) => {
             })
         }
     }
+
+    const addTaskList = (title, position) => {
+
+    } 
 
     const [counter, setCounter] = useState(kanbanInfoJSON 
         ? JSON.parse(kanbanInfoJSON).counter

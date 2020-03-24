@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import './DialogWindow.css'
 import { dialogWindowContext } from '../../context/DialogWindow/dialogWindowContext'
+import { taskBarContext } from '../../context/TaskBar/taskBarContext'
 
 function DialogWindow() {
     const {dialogWindowState, hideDialog} = useContext(dialogWindowContext)
@@ -10,8 +11,20 @@ function DialogWindow() {
     if (contentType === 'AddContent') {
         content = (
             <React.Fragment>
-                <label htmlFor="input-name">Enter a list name:</label>
-                <input type="text" id="input-name"/>
+                <div>
+                    <label htmlFor="input-name">Enter a list name:</label>
+                    <input type="text" id="input-name"/>
+                </div>
+    
+                <div>
+                    <label htmlFor="select-position">Select position:</label>
+                    <select id="select-position" >
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                </div>
+                
             </React.Fragment>
         )
     } 
