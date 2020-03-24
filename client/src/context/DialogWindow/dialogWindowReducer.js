@@ -1,5 +1,7 @@
+import { SHOW_ADD_DIALOG } from "../types"
+
 const handlers = {
-    SHOW_ADD_DIALOG: (state, action) => {
+    [SHOW_ADD_DIALOG]: (state, action) => {
         return {...state, visible: !state.visible}
     },
 

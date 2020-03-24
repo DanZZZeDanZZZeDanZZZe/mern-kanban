@@ -1,5 +1,6 @@
-import React, {Component} from 'react'
+import React, {Component, useContext, useState} from 'react'
 import './UserPanel.css'
+import { dialogWindowContext } from '../../context/DialogWindow/dialogWindowContext'
 const MenuItem = ({children, action}) => {
     return (
         <p onClick={action}>{children}</p>
@@ -19,11 +20,16 @@ class UserPanel extends Component {
         })
     }
 
-
+    /*dialogWindowVisible = () => {
+        const {dialogWindowState: {visible}} = useContext(dialogWindowContext)
+        return visible
+    }*/
 
     render() {
+        const { dialogVisible } = this.props
         const { menuButtonActivity } = this.state
-        const buttonClasses = menuButtonActivity 
+        console.log(dialogVisible)
+        const buttonClasses = menuButtonActivity
             ? `user-button`
             : `user-button active`
 
@@ -39,7 +45,7 @@ class UserPanel extends Component {
                     </button>
                     <ul>
                         {
-                            menuButtonActivity && 
+                            menuButtonActivity && !dialogVisible &&
                             React.Children.map(this.props.children, (item)=>{
                                 return <li>{item}</li>
                             })
@@ -52,5 +58,13 @@ class UserPanel extends Component {
     }
 }
 
-export default UserPanel
+function WithData({children}) {
+    const {dialogWindowState: {visible}} = useContext(dialogWindowContext)
+    
+    return (
+        <UserPanel dialogVisible={visible}>{children}</UserPanel>
+    )
+}
+
+export {WithData as UserPanel}
 export {MenuItem}

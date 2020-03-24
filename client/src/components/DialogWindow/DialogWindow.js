@@ -1,10 +1,9 @@
 import React, { useContext } from 'react'
 import './DialogWindow.css'
-import DialogWindowState from '../../context/DialogWindow/DialogWindowState'
 import { dialogWindowContext } from '../../context/DialogWindow/dialogWindowContext'
 
 function DialogWindow() {
-    const {dialogWindowState, setDialogWindowState} = useContext(dialogWindowContext)
+    const {dialogWindowState} = useContext(dialogWindowContext)
     const {visible} = dialogWindowState
 
     if (!visible) return null
