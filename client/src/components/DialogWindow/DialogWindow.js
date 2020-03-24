@@ -4,16 +4,22 @@ import { dialogWindowContext } from '../../context/DialogWindow/dialogWindowCont
 
 function DialogWindow() {
     const {dialogWindowState, hideDialog} = useContext(dialogWindowContext)
-    const {visible, title} = dialogWindowState
-
+    const {visible, title, contentType} = dialogWindowState
+    let content = null
     if (!visible) return null
-
+    if (contentType === 'AddContent') {
+        content = <input type="text"/>
+    } 
+    
     return (
 
         <div className="dialog-container">
             <div className="bluer"></div>
             <div className="dialog-window">
                 <h1>{title}</h1>
+                <div className="content-container">
+                    {content}
+                </div>
                 <div className="buttons-container">
                     <button>OK</button>
                     <button onClick={hideDialog}>Сancel</button>

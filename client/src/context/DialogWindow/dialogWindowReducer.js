@@ -2,7 +2,12 @@ import { SHOW_ADD_DIALOG, HIDE_DIALOG } from "../types"
 
 const handlers = {
     [SHOW_ADD_DIALOG]: (state, action) => {
-        return {...state, visible: true, title: 'Add New List'}
+        return {
+            ...state, 
+            visible: true, 
+            title: 'Add New List',
+            contentType: 'AddContent'
+        }
     },
     [HIDE_DIALOG]: () => { return {visible: false }},
     DEFAULT: state => state
