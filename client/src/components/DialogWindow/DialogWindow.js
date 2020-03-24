@@ -8,7 +8,12 @@ function DialogWindow() {
     let content = null
     if (!visible) return null
     if (contentType === 'AddContent') {
-        content = <input type="text"/>
+        content = (
+            <React.Fragment>
+                <label htmlFor="input-name">Enter a list name:</label>
+                <input type="text" id="input-name"/>
+            </React.Fragment>
+        )
     } 
     
     return (

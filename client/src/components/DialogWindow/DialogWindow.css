@@ -16,6 +16,7 @@
     flex-direction: column;
     justify-content: start;
     align-items: center;
+    padding: 5px;
 }
 
 .bluer {
@@ -48,4 +49,8 @@
 .content-container > input {
     width: 70%;
     padding: .5rem;
+}
+
+.content-container > label {
+    margin-right: 5px;
 }
