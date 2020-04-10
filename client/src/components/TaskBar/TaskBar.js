@@ -20,8 +20,8 @@ export const TaskBar = () => {
     )
 
     useEffect(() => {
-        console.log('taskId', taskId)
-    }, [taskId]);
+        console.log('tasksState', tasksState)
+    }, [tasksState]);
 
     useEffect(() => {
         setButtonsActivity(mutateButtonsActivity(buttonsActivity))

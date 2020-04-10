@@ -1,4 +1,4 @@
-import { SET_STATE, RAIS_THE_TASK, ADD_TASK } from "../types"
+import { SET_STATE, RAIS_THE_TASK, ADD_TASK, ADD_TASK_LIST } from "../types"
 
 const handlers = {
     [SET_STATE]: ({payload}) => ([...payload]),
@@ -21,6 +21,13 @@ const handlers = {
         })
         
         return [stateItem].concat(stateResidue)
+    },
+    [ADD_TASK_LIST]: (state, {payload}) => {
+        const {position, title} =payload
+        console.log(position, title, state)
+        state.splice(position-1,0,{title, issues: []})
+        const newState = [...state]
+        return newState
     },
     DEFAULT: state => state
 }

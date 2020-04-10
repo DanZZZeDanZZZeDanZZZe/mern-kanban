@@ -16,10 +16,9 @@ export const TaskBarState = ({children}) => {
                 issues: []   
             }
         })
-    
+
     const [tasksState, dispatch] = useReducer(
         taskBarReducer, initTasksState
-        
     )
 
     const setTasksState = (newstate) => {
@@ -57,8 +56,17 @@ export const TaskBarState = ({children}) => {
         }
     }
 
-    const addTaskList = (title, position) => {
-
+    const addTaskList = (data) => {
+        if (data && data.title && data.title !== '') {
+            const { title, position } = data
+            dispatch({
+                type: ADD_TASK_LIST,
+                payload: { 
+                    title,
+                    position
+                }
+            })
+        }
     } 
 
     const [counter, setCounter] = useState(kanbanInfoJSON 
@@ -79,7 +87,8 @@ export const TaskBarState = ({children}) => {
             setCounter,
             raisTheTask,
             addTask,
-            getIssues
+            getIssues,
+            addTaskList
         }}>    
             {children}
         </taskBarContext.Provider>
