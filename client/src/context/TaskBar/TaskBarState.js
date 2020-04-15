@@ -1,7 +1,7 @@
 import React, {useReducer, useState, useEffect} from 'react'
 import { taskBarContext } from './taskBarContext'
 import { taskBarReducer } from './taskBarReducer'
-import { SET_STATE, RAIS_THE_TASK, ADD_TASK, ADD_TASK_LIST } from '../types'
+import { SET_STATE, RAIS_THE_TASK, ADD_TASK, ADD_TASK_LIST, TASK_SETTING } from '../types'
 
 export const TaskBarState = ({children}) => {
     const titles = ['Backlog', 'Ready', 'In progress', 'Finished']
@@ -13,7 +13,8 @@ export const TaskBarState = ({children}) => {
         : titles.map( item => {
             return {         
                 title: item,         
-                issues: []   
+                issues: [],
+                selectionMode: false
             }
         })
 
@@ -28,6 +29,13 @@ export const TaskBarState = ({children}) => {
         })
     }
     
+    const enableSelectionMode = (index) => {
+        dispatch({
+            type: TASK_SETTING,
+            payload: index
+        })
+    }
+
     const getIssues = (index) => {
         return tasksState[index].issues
     }
@@ -77,6 +85,7 @@ export const TaskBarState = ({children}) => {
     useEffect(() => {
         const serialTasksState = JSON.stringify({tasksState, counter})
         localStorage.setItem('kanbanInfo', serialTasksState)
+        console.log(tasksState)
     }, [tasksState])
 
     return (
@@ -88,7 +97,8 @@ export const TaskBarState = ({children}) => {
             raisTheTask,
             addTask,
             getIssues,
-            addTaskList
+            addTaskList,
+            enableSelectionMode
         }}>    
             {children}
         </taskBarContext.Provider>

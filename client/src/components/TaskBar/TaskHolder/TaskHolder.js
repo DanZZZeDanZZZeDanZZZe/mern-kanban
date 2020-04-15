@@ -3,15 +3,15 @@ import './TaskHolder.css';
 import Context from '../../../context';
 import { taskBarContext } from '../../../context/TaskBar/taskBarContext';
 
-export const TaskHolder = ({ item, index, activity }) => {
-    const {title, issues} = item
-    const {changeActivity, setTaskId} = useContext(Context)
-    const {raisTheTask, addTask, getIssues} = useContext(taskBarContext)
-    let previousList = false
+export const TaskHolder = ({ item, index, setTaskId }) => {
+    const {title, issues, selectionMode} = item
+    const {raisTheTask, addTask, getIssues, enableSelectionMode} = useContext(taskBarContext)
+    
+
+    let previousList = null
     if (index > 0) {
         previousList = createPreviousList(index-1);
     }
-
     function createPreviousList(index) {
         const taskList = getIssues(index).map((it, ind) => {
             return (
@@ -20,7 +20,7 @@ export const TaskHolder = ({ item, index, activity }) => {
                     className="previousItem" 
                     onClick={() => {
                         raisTheTask(ind, index)
-                        changeActivity(index + 1)
+                       // changeActivity(index + 1)
                     }}
                 >
                     {it.name}
@@ -30,13 +30,10 @@ export const TaskHolder = ({ item, index, activity }) => {
         return taskList
     }
     
-    function clickHolder() {
-        changeActivity(index)
-    }
     function pressHandler(event) {
         if(event.keyCode === 13){
             event.preventDefault();
-            changeActivity(index)
+            enableSelectionMode(null)
             addTask(index, event.target.value)
         }
     }
@@ -54,7 +51,6 @@ export const TaskHolder = ({ item, index, activity }) => {
                                         key={item.id}
                                         onClick={()=> {
                                             setTaskId(item.id)
-                                            
                                         }}
                                     >
                                         {item.name}
@@ -64,16 +60,16 @@ export const TaskHolder = ({ item, index, activity }) => {
                         }
                     </ul>
                     {
-                        !previousList && activity.field && <input type='text' autoFocus onKeyDown={pressHandler}/> 
+                      /*  !previousList && activity.field && */<input type='text' autoFocus onKeyDown={pressHandler}/> 
                     }
                     {
-                        previousList && activity.field && <ul>{previousList}</ul>
+                       selectionMode && <ul>{previousList}</ul>
                     }
                     {
-                        !activity.field && 
+                       /* !activity.field && */
                             <button 
-                                onClick={clickHolder} 
-                                disabled={!activity.button}
+                                onClick={()=>{enableSelectionMode(index)}} 
+                              /*  disabled={!activity.button}*/
                             >
                                 <span>+</span> Add card
                             </button>

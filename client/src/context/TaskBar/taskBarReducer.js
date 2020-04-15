@@ -1,4 +1,4 @@
-import { SET_STATE, RAIS_THE_TASK, ADD_TASK, ADD_TASK_LIST } from "../types"
+import { SET_STATE, RAIS_THE_TASK, ADD_TASK, ADD_TASK_LIST, TASK_SETTING } from "../types"
 
 const handlers = {
     [SET_STATE]: ({payload}) => ([...payload]),
@@ -28,6 +28,14 @@ const handlers = {
         state.splice(position-1,0,{title, issues: []})
         const newState = [...state]
         return newState
+    },
+    [TASK_SETTING]: (state, {payload}) => {
+        return state.map((item, index) => {
+            (index === payload) 
+                ? item.selectionMode = true
+                : item.selectionMode = false
+            return item
+        })
     },
     DEFAULT: state => state
 }
