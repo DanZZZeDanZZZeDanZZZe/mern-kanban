@@ -19,7 +19,7 @@ export const TaskHolder = ({ item, index, setTaskId }) => {
                     className="previousItem" 
                     onClick={() => {
                         raisTheTask(ind, index)
-                       // changeActivity(index + 1)
+                        enableSelectionMode(null)
                     }}
                 >
                     {it.name}
@@ -59,19 +59,21 @@ export const TaskHolder = ({ item, index, setTaskId }) => {
                         }
                     </ul>
                     {
-                      /*  !previousList && activity.field && */<input type='text' autoFocus onKeyDown={pressHandler}/> 
+                        !previousList && 
+                        selectionMode && 
+                        <input type='text' autoFocus onKeyDown={pressHandler}/> 
                     }
                     {
                        selectionMode && <ul>{previousList}</ul>
                     }
                     {
-                       /* !activity.field && */
-                            <button 
-                                onClick={()=>{enableSelectionMode(index)}} 
-                              /*  disabled={!activity.button}*/
-                            >
-                                <span>+</span> Add card
-                            </button>
+                        !selectionMode && 
+                        <button 
+                            onClick={()=>{enableSelectionMode(index)}} 
+                            /*  disabled={!activity.button}*/
+                        >
+                            <span>+</span> Add card
+                        </button>
                     }
                 </div>
             </div>
