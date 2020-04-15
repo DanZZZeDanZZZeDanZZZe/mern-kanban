@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
 import './TaskHolder.css';
-import Context from '../../../context';
 import { taskBarContext } from '../../../context/TaskBar/taskBarContext';
 
 export const TaskHolder = ({ item, index, setTaskId }) => {

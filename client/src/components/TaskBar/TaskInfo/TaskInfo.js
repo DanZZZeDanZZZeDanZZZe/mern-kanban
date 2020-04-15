@@ -1,11 +1,9 @@
 import React, {useContext, useState, useEffect} from 'react';
 import './TaskInfo.css';
-import Context from '../../../context';
 import { taskBarContext } from '../../../context/TaskBar/taskBarContext';
 
 
-export const TaskInfo = () => {
-    const { setTaskId, taskId} = useContext(Context)
+export const TaskInfo = ({ setTaskId, taskId}) => {
     const taskBar = useContext(taskBarContext)
 
     const tasksState = taskBar.tasksState

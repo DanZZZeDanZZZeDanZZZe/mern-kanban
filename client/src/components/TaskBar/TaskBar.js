@@ -24,7 +24,13 @@ export const TaskBar = () => {
                         })
                     }
                 </div>}
-                {taskId !== null && <TaskInfo/>}
+                {
+                    taskId !== null && 
+                    <TaskInfo 
+                        setTaskId={setTaskId}
+                        taskId={taskId}
+                    />
+                }
             </main>
     )
 }
