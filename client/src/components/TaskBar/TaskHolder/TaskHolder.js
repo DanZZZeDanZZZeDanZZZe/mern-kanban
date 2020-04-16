@@ -3,8 +3,8 @@ import './TaskHolder.css';
 import { taskBarContext } from '../../../context/TaskBar/taskBarContext';
 
 export const TaskHolder = ({ item, index, setTaskId }) => {
-    const {title, issues, selectionMode} = item
-    const {raisTheTask, addTask, getIssues, enableSelectionMode} = useContext(taskBarContext)
+    const {title, issues, selectionMode, accessibilityMode} = item
+    const {raisTheTask, addTask, getIssues, enableSelectionMode, checkAvailability} = useContext(taskBarContext)
     
 
     let previousList = null
@@ -20,6 +20,7 @@ export const TaskHolder = ({ item, index, setTaskId }) => {
                     onClick={() => {
                         raisTheTask(ind, index)
                         enableSelectionMode(null)
+                        checkAvailability()
                     }}
                 >
                     {it.name}
@@ -33,6 +34,7 @@ export const TaskHolder = ({ item, index, setTaskId }) => {
         if(event.keyCode === 13){
             event.preventDefault();
             enableSelectionMode(null)
+            checkAvailability()
             addTask(index, event.target.value)
         }
     }
@@ -70,7 +72,7 @@ export const TaskHolder = ({ item, index, setTaskId }) => {
                         !selectionMode && 
                         <button 
                             onClick={()=>{enableSelectionMode(index)}} 
-                            /*  disabled={!activity.button}*/
+                            disabled={!accessibilityMode}
                         >
                             <span>+</span> Add card
                         </button>

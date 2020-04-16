@@ -1,4 +1,4 @@
-import { SET_STATE, RAIS_THE_TASK, ADD_TASK, ADD_TASK_LIST, TASK_SETTING } from "../types"
+import { SET_STATE, RAIS_THE_TASK, ADD_TASK, ADD_TASK_LIST, TASK_SETTING, CHECK_AVAILABILITY } from "../types"
 
 const handlers = {
     [SET_STATE]: ({payload}) => ([...payload]),
@@ -34,6 +34,16 @@ const handlers = {
             (index === payload) 
                 ? item.selectionMode = true
                 : item.selectionMode = false
+            return item
+        })
+    },
+    [CHECK_AVAILABILITY]: (state) => {
+        let preventValue = true 
+        return state.map(item => {
+            item.accessibilityMode = preventValue
+            preventValue = ( item.issues.length ) 
+                ? true
+                : false
             return item
         })
     },

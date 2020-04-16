@@ -1,25 +1,27 @@
 import React, {useReducer, useState, useEffect} from 'react'
 import { taskBarContext } from './taskBarContext'
 import { taskBarReducer } from './taskBarReducer'
-import { SET_STATE, RAIS_THE_TASK, ADD_TASK, ADD_TASK_LIST, TASK_SETTING } from '../types'
+import { SET_STATE, RAIS_THE_TASK, ADD_TASK, ADD_TASK_LIST, TASK_SETTING, MAKE_AVAILABLE, CHECK_AVAILABILITY } from '../types'
 
 export const TaskBarState = ({children}) => {
     const titles = ['Backlog', 'Ready', 'In progress', 'Finished']
     const kanbanInfoJSON = localStorage.getItem('kanbanInfo')
 
-    
-    const initTasksState = kanbanInfoJSON 
-        ? JSON.parse(kanbanInfoJSON).tasksState
-        : titles.map( item => {
-            return {         
-                title: item,         
-                issues: [],
-                selectionMode: false
-            }
-        })
+    const initTasksState = () => {
+        return kanbanInfoJSON 
+            ? JSON.parse(kanbanInfoJSON).tasksState
+            : titles.map( (item, index) => {
+                return {         
+                    title: item,         
+                    issues: [],
+                    selectionMode: false,
+                    accessibilityMode: (index === 0) ? true : false
+                }
+            })
+    }   
 
     const [tasksState, dispatch] = useReducer(
-        taskBarReducer, initTasksState
+        taskBarReducer, initTasksState()
     )
 
     const setTasksState = (newstate) => {
@@ -33,6 +35,12 @@ export const TaskBarState = ({children}) => {
         dispatch({
             type: TASK_SETTING,
             payload: index
+        })
+    }
+
+    const checkAvailability = () => {
+        dispatch({
+            type: CHECK_AVAILABILITY,
         })
     }
 
@@ -87,7 +95,6 @@ export const TaskBarState = ({children}) => {
         localStorage.setItem('kanbanInfo', serialTasksState)
         console.log(tasksState)
     }, [tasksState])
-
     return (
         <taskBarContext.Provider value = {{
             tasksState, 
@@ -98,7 +105,8 @@ export const TaskBarState = ({children}) => {
             addTask,
             getIssues,
             addTaskList,
-            enableSelectionMode
+            enableSelectionMode,
+            checkAvailability
         }}>    
             {children}
         </taskBarContext.Provider>
