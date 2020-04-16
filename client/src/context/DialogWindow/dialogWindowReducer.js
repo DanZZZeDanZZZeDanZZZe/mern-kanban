@@ -1,12 +1,15 @@
 import { SHOW_ADD_DIALOG, HIDE_DIALOG, UPDATE_PAYLOAD } from "../types"
+import React from 'react'
 
 const handlers = {
-    [SHOW_ADD_DIALOG]: (state, action) => {
+    [SHOW_ADD_DIALOG]: (state, {payload}) => {
+        const {content, addTaskList} = payload
         return {
             ...state, 
             visible: true, 
             title: 'Add New List',
-            contentType: 'AddContent',
+            content: content,
+            okHandler: (addInfo) => addTaskList(addInfo),
             payload: {position: 1}
         }
     },

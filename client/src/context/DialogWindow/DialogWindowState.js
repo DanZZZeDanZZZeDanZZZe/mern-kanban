@@ -3,8 +3,9 @@ import { dialogWindowContext } from './dialogWindowContext';
 import { dialogWindowReducer } from './dialogWindowReducer';
 import { SHOW_ADD_DIALOG, HIDE_DIALOG, UPDATE_PAYLOAD } from '../types';
 import { taskBarContext } from '../TaskBar/taskBarContext';
+import UploadContent from "../../components/DialogWindow/content/UploadContent"
 const DialogWindowState = ({children}) => {
-
+    const { addTaskList } = useContext(taskBarContext)
     const [dialogWindowState, dispatch] = useReducer(dialogWindowReducer,{
         visible: false,
     })
@@ -13,11 +14,13 @@ const DialogWindowState = ({children}) => {
         console.log('dialogWindowState',dialogWindowState)
     }, [dialogWindowState])
 
-    const {TaskBarState}= useContext(taskBarContext)
-
     const showAddDialog = () => {
         dispatch ({
-            type: SHOW_ADD_DIALOG
+            type: SHOW_ADD_DIALOG,
+            payload: {
+                addTaskList: addTaskList,
+                content: <UploadContent/>
+            }
         })
     }
 
