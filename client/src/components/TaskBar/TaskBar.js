@@ -6,31 +6,34 @@ import { taskBarContext } from '../../context/TaskBar/taskBarContext';
 
 export const TaskBar = () => {
     const { tasksState } = useContext(taskBarContext)
-    const [taskId, setTaskId] = useState(null);
-    
+    const [taskId, setTaskId] = useState(null) 
     return (
-            <main className="TaskBar">
-                {taskId === null && <div className="TaskContainer">
-                    {
-                        tasksState.map((item, index) => {                          
-                            return (
-                                <TaskHolder
-                                    item = {item}
-                                    key = {index}
-                                    index = {index}
-                                    setTaskId = {setTaskId}
-                                />
-                            )
-                        })
-                    }
-                </div>}
+        <main className="TaskBar">
+            {taskId === null && <div className="TaskContainer">
                 {
-                    taskId !== null && 
-                    <TaskInfo 
-                        setTaskId={setTaskId}
-                        taskId={taskId}
-                    />
+                    tasksState.map((item, index, arr) => {
+                        const lastPanel = (index === arr.length - 1 ) 
+                            ? true 
+                            : false                    
+                        return (
+                            <TaskHolder
+                                item = {item}
+                                key = {index}
+                                index = {index}
+                                setTaskId = {setTaskId}
+                                lastPanel = {lastPanel}
+                            />
+                        )
+                    })
                 }
-            </main>
+            </div>}
+            {
+                taskId !== null && 
+                <TaskInfo 
+                    setTaskId={setTaskId}
+                    taskId={taskId}
+                />
+            }
+        </main>
     )
 }

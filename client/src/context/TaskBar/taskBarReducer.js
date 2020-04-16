@@ -23,8 +23,7 @@ const handlers = {
         return [stateItem].concat(stateResidue)
     },
     [ADD_TASK_LIST]: (state, {payload}) => {
-        const {position, title} =payload
-        console.log(position, title, state)
+        const {position, title} = payload
         state.splice(position-1,0,{title, issues: []})
         const newState = [...state]
         return newState

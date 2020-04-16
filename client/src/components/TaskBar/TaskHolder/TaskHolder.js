@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import './TaskHolder.css';
 import { taskBarContext } from '../../../context/TaskBar/taskBarContext';
 
-export const TaskHolder = ({ item, index, setTaskId }) => {
+export const TaskHolder = ({ item, index, setTaskId, lastPanel }) => {
     const {title, issues, selectionMode, accessibilityMode} = item
     const {raisTheTask, addTask, getIssues, enableSelectionMode, checkAvailability} = useContext(taskBarContext)
     
@@ -69,7 +69,8 @@ export const TaskHolder = ({ item, index, setTaskId }) => {
                        selectionMode && <ul>{previousList}</ul>
                     }
                     {
-                        !selectionMode && 
+                        !selectionMode &&
+                        !lastPanel &&
                         <button 
                             onClick={()=>{enableSelectionMode(index)}} 
                             disabled={!accessibilityMode}
