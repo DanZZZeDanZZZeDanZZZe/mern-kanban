@@ -82,6 +82,7 @@ export const TaskBarState = ({children}) => {
                     position
                 }
             })
+            checkAvailability()
         }
     } 
 
