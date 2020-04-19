@@ -1,12 +1,10 @@
 import React, { useContext } from 'react'
 import './DialogWindow.css'
 import { dialogWindowContext } from '../../context/DialogWindow/dialogWindowContext'
-import { taskBarContext } from '../../context/TaskBar/taskBarContext'
 
 function DialogWindow() {
     const {dialogWindowState, hideDialog} = useContext(dialogWindowContext)
-    const {addTaskList } = useContext(taskBarContext)
-    const {visible, title, contentType, payload, okHandler, content} = dialogWindowState
+    const {visible, title, payload, okHandler, content} = dialogWindowState
 
     if (!visible) return null
     return (

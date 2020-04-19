@@ -11,17 +11,13 @@ export const TaskBar = () => {
         <main className="TaskBar">
             {taskId === null && <div className="TaskContainer">
                 {
-                    tasksState.map((item, index, arr) => {
-                        const lastPanel = (index === arr.length - 1 ) 
-                            ? true 
-                            : false                    
+                    tasksState.map((item, index) => {                 
                         return (
                             <TaskHolder
                                 item = {item}
                                 key = {index}
                                 index = {index}
                                 setTaskId = {setTaskId}
-                                lastPanel = {lastPanel}
                             />
                         )
                     })
