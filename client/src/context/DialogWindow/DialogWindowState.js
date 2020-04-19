@@ -17,23 +17,24 @@ const DialogWindowState = ({children}) => {
     const showAddDialog = () => {
         const type = SHOW_ADD_DIALOG
         dispatch ({
-            type: type,
+            type,
             payload: {
-                addTaskList: addTaskList,
+                actionFunction: addTaskList,
                 content: <UploadContent type={type}/>
             }
         })
     }
 
-    // const showDeleteDialog = () => {
-    //     dispatch ({
-    //         type: SHOW_DELETE_DIALOG,
-    //         payload: {
-    //             addTaskList: deleteTaskList,
-    //             content: //<UploadContent/>
-    //         }
-    //     })
-    // }
+    const showDeleteDialog = () => {
+        const type = SHOW_DELETE_DIALOG
+        dispatch ({
+            type,
+            payload: {
+                actionFunction: null,//deleteTaskList,
+                content: <UploadContent type={type}/>
+            }
+        })
+    }
 
     const hideDialog = () => {
         dispatch ({
@@ -52,6 +53,7 @@ const DialogWindowState = ({children}) => {
         <dialogWindowContext.Provider value={{
             dialogWindowState,
             showAddDialog,
+            showDeleteDialog,
             hideDialog,
             updatePayload
         }}>

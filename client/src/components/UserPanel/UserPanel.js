@@ -20,11 +20,6 @@ class UserPanel extends Component {
         })
     }
 
-    /*dialogWindowVisible = () => {
-        const {dialogWindowState: {visible}} = useContext(dialogWindowContext)
-        return visible
-    }*/
-
     render() {
         const { dialogVisible } = this.props
         const { menuButtonActivity } = this.state

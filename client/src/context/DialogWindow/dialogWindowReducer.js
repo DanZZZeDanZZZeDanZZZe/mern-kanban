@@ -1,15 +1,26 @@
-import { SHOW_ADD_DIALOG, HIDE_DIALOG, UPDATE_PAYLOAD } from "../types"
+import { SHOW_ADD_DIALOG, HIDE_DIALOG, UPDATE_PAYLOAD, SHOW_DELETE_DIALOG } from "../types"
 import React from 'react'
 
 const handlers = {
     [SHOW_ADD_DIALOG]: (state, {payload}) => {
-        const {content, addTaskList} = payload
+        const {content, actionFunction} = payload
         return {
             ...state, 
             visible: true, 
             title: 'Add New List',
             content: content,
-            okHandler: (addInfo) => addTaskList(addInfo),
+            okHandler: (addInfo) => actionFunction(addInfo),
+            payload: {position: 1}
+        }
+    },
+    [SHOW_DELETE_DIALOG]: (state, {payload}) => {
+        const {content, actionFunction} = payload
+        return {
+            ...state, 
+            visible: true, 
+            title: 'Delete List',
+            content: content,
+            okHandler: (addInfo) => actionFunction(addInfo),
             payload: {position: 1}
         }
     },
