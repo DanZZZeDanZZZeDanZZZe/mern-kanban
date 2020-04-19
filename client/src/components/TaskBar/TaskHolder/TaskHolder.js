@@ -34,8 +34,8 @@ export const TaskHolder = ({ item, index, setTaskId }) => {
         if(event.keyCode === 13){
             event.preventDefault();
             enableSelectionMode(null)
-            checkAvailability()
             addTask(index, event.target.value)
+            checkAvailability()
         }
     }
 
@@ -71,7 +71,9 @@ export const TaskHolder = ({ item, index, setTaskId }) => {
                     {
                         !selectionMode &&
                         <button 
-                            onClick={()=>{enableSelectionMode(index)}} 
+                            onClick={()=>{
+                                enableSelectionMode(index)
+                            }} 
                             disabled={!accessibilityMode}
                         >
                             <span>+</span> Add card
