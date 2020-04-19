@@ -1,4 +1,4 @@
-import { SET_STATE, RAIS_THE_TASK, ADD_TASK, ADD_TASK_LIST, TASK_SETTING, CHECK_AVAILABILITY } from "../types"
+import { SET_STATE, RAIS_THE_TASK, ADD_TASK, ADD_TASK_LIST, TASK_SETTING, CHECK_AVAILABILITY, DELETE_TASK_LIST } from "../types"
 
 const handlers = {
     [SET_STATE]: ({payload}) => ([...payload]),
@@ -37,6 +37,11 @@ const handlers = {
             accessibilityMode
         }
         state.splice(position-1,0, data)
+        const newState = [...state]
+        return newState
+    },
+    [DELETE_TASK_LIST]: (state, {payload: { position }}) => {
+        state.splice(position-1, 1)
         const newState = [...state]
         return newState
     },

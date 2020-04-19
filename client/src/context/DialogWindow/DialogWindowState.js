@@ -5,7 +5,7 @@ import { SHOW_ADD_DIALOG, HIDE_DIALOG, UPDATE_PAYLOAD, SHOW_DELETE_DIALOG } from
 import { taskBarContext } from '../TaskBar/taskBarContext';
 import UploadContent from "../../components/DialogWindow/content/UploadContent"
 const DialogWindowState = ({children}) => {
-    const { addTaskList } = useContext(taskBarContext)
+    const { addTaskList, deleteTaskList } = useContext(taskBarContext)
     const [dialogWindowState, dispatch] = useReducer(dialogWindowReducer,{
         visible: false,
     })
@@ -30,7 +30,7 @@ const DialogWindowState = ({children}) => {
         dispatch ({
             type,
             payload: {
-                actionFunction: null,//deleteTaskList,
+                actionFunction: deleteTaskList,
                 content: <UploadContent type={type}/>
             }
         })

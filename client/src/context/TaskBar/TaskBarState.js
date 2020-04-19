@@ -1,7 +1,7 @@
 import React, {useReducer, useState, useEffect} from 'react'
 import { taskBarContext } from './taskBarContext'
 import { taskBarReducer } from './taskBarReducer'
-import { SET_STATE, RAIS_THE_TASK, ADD_TASK, ADD_TASK_LIST, TASK_SETTING, MAKE_AVAILABLE, CHECK_AVAILABILITY } from '../types'
+import { SET_STATE, RAIS_THE_TASK, ADD_TASK, ADD_TASK_LIST, TASK_SETTING, MAKE_AVAILABLE, CHECK_AVAILABILITY, DELETE_TASK_LIST } from '../types'
 
 export const TaskBarState = ({children}) => {
     const titles = ['Backlog', 'Ready', 'In progress', 'Finished']
@@ -85,6 +85,17 @@ export const TaskBarState = ({children}) => {
         }
     } 
 
+    const deleteTaskList = (data) => {
+        const { position } = data
+        dispatch({
+            type: DELETE_TASK_LIST,
+            payload: { 
+                position
+            }
+        })
+        checkAvailability()
+    }
+
     const [counter, setCounter] = useState(kanbanInfoJSON 
         ? JSON.parse(kanbanInfoJSON).counter
         : 0
@@ -105,6 +116,7 @@ export const TaskBarState = ({children}) => {
             addTask,
             getIssues,
             addTaskList,
+            deleteTaskList,
             enableSelectionMode,
             checkAvailability
         }}>    
