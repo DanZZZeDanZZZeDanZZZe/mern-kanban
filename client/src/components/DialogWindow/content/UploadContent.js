@@ -2,9 +2,24 @@ import React, { useContext } from 'react'
 import './UploadContent.css'
 import { dialogWindowContext } from '../../../context/DialogWindow/dialogWindowContext'
 import { taskBarContext } from '../../../context/TaskBar/taskBarContext'
-const UploadContent = () => {
+const UploadContent = ({type}) => {
+    let content = null
+
+    switch (type) {
+        case 'SHOW_ADD_DIALOG':
+            content = <AddContent/>
+            break
+        default:
+            break
+    }
+
+    return content
+}
+
+const AddContent = () => {
     const { updatePayload } = useContext(dialogWindowContext)
     const { tasksState } = useContext(taskBarContext)
+
     const options = tasksState.map((item, index) => {
         return (
             <option 
@@ -18,27 +33,27 @@ const UploadContent = () => {
 
     return (
         <React.Fragment>
-                <div>
-                    <label htmlFor="input-name">Enter a list name:</label>
-                    <input 
-                        type="text" 
-                        id="input-name" 
-                        onChange={(e) => {
-                            updatePayload({title: e.target.value})
-                        }}/>
-                </div>
-    
-                <div>
-                    <label htmlFor="select-position">Select position:</label>
-                    <select 
-                        id="select-position" 
-                        onChange={(e) => {
-                            updatePayload({position: e.target.value})
-                        }}>
-                        {options}
-                    </select>
-                </div>
-            </React.Fragment>
+            <div>
+                <label htmlFor="input-name">Enter a list name:</label>
+                <input 
+                    type="text" 
+                    id="input-name" 
+                    onChange={(e) => {
+                        updatePayload({title: e.target.value})
+                    }}/>
+            </div>
+
+            <div>
+                <label htmlFor="select-position">Select position:</label>
+                <select 
+                    id="select-position" 
+                    onChange={(e) => {
+                        updatePayload({position: e.target.value})
+                    }}>
+                    {options}
+                </select>
+            </div>
+        </React.Fragment>
     )
 }
 
