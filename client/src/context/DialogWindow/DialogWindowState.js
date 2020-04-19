@@ -1,7 +1,7 @@
 import React, { useState, useReducer, useContext, useEffect } from 'react';
 import { dialogWindowContext } from './dialogWindowContext';
 import { dialogWindowReducer } from './dialogWindowReducer';
-import { SHOW_ADD_DIALOG, HIDE_DIALOG, UPDATE_PAYLOAD } from '../types';
+import { SHOW_ADD_DIALOG, HIDE_DIALOG, UPDATE_PAYLOAD, SHOW_DELETE_DIALOG } from '../types';
 import { taskBarContext } from '../TaskBar/taskBarContext';
 import UploadContent from "../../components/DialogWindow/content/UploadContent"
 const DialogWindowState = ({children}) => {
@@ -15,14 +15,25 @@ const DialogWindowState = ({children}) => {
     }, [dialogWindowState])
 
     const showAddDialog = () => {
+        const type = SHOW_ADD_DIALOG
         dispatch ({
-            type: SHOW_ADD_DIALOG,
+            type: type,
             payload: {
                 addTaskList: addTaskList,
-                content: <UploadContent/>
+                content: <UploadContent type={type}/>
             }
         })
     }
+
+    // const showDeleteDialog = () => {
+    //     dispatch ({
+    //         type: SHOW_DELETE_DIALOG,
+    //         payload: {
+    //             addTaskList: deleteTaskList,
+    //             content: //<UploadContent/>
+    //         }
+    //     })
+    // }
 
     const hideDialog = () => {
         dispatch ({

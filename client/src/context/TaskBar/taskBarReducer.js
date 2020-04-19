@@ -24,7 +24,19 @@ const handlers = {
     },
     [ADD_TASK_LIST]: (state, {payload}) => {
         const {position, title} = payload
-        state.splice(position-1,0,{title, issues: []})
+        let accessibilityMode = true
+        if (position > 1 ) {
+            accessibilityMode = (state[position - 1].issues.length) 
+                ? true
+                : false
+        }
+        const data = {
+            title, 
+            issues: [],
+            selectionMode: false,
+            accessibilityMode
+        }
+        state.splice(position-1,0, data)
         const newState = [...state]
         return newState
     },
