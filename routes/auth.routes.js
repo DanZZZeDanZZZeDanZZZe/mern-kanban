@@ -6,6 +6,8 @@ const router = Router()
 router.use('/register', async (req, res) => {
     try {
         console.log('register:', req.body)
+        const {email, password} = req.body   
+        
     } catch (e) {
         res.status(500).json({message: 'Something went wrong. Try it again!'})
     }

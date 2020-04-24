@@ -1,11 +1,13 @@
 import React, {useReducer, useState, useEffect} from 'react'
 import { taskBarContext } from './taskBarContext'
 import { taskBarReducer } from './taskBarReducer'
+import { useHttp } from '../../hooks/http.hook'
 import { SET_STATE, RAIS_THE_TASK, ADD_TASK, ADD_TASK_LIST, TASK_SETTING, MAKE_AVAILABLE, CHECK_AVAILABILITY, DELETE_TASK_LIST } from '../types'
 
 export const TaskBarState = ({children}) => {
     const titles = ['Backlog', 'Ready', 'In progress', 'Finished']
     const kanbanInfoJSON = localStorage.getItem('kanbanInfo')
+    const {request} = useHttp()
 
     const initTasksState = () => {
         return kanbanInfoJSON 
@@ -107,6 +109,13 @@ export const TaskBarState = ({children}) => {
         localStorage.setItem('kanbanInfo', serialTasksState)
         console.log(tasksState)
     }, [tasksState])
+
+    /*useEffect(async () => {
+        try {
+            const body = JSON.stringify({tasksState, counter})
+            const fetched = await request('/tasks', 'POST', null)
+        } catch (e) {}
+    }, [tasksState])*/
     return (
         <taskBarContext.Provider value = {{
             tasksState, 
