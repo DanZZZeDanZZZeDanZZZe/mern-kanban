@@ -4,8 +4,8 @@ const config = require('config')
 const app = express()
 
 app.use(express.json({  extended:true}))
-app.use('api/auth', require('./routes/auth.routes'))
-app.use('/tasks', require('./routes/tasks.routes'))
+app.use('/api/auth', () => { console.log('hy')}, require('./routes/auth.routes'))
+app.use('/api/data', () => { console.log('hy')}, require('./routes/tasks.routes'))
 
 const PORT = config.get('port') || 5000
 
