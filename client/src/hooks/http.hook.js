@@ -13,12 +13,11 @@ export const useHttp = () => {
             }
 
             const responce = await fetch(url, {method, body, headers})
+            const data = await responce.json()
 
             if (!responce.ok) {
                 throw new Error(data.message || 'Something went wrong')
             }
-
-            const data = await responce.json()
 
             setLoading(false)
 
@@ -26,7 +25,6 @@ export const useHttp = () => {
         } catch (e) {
             setLoading(false)
             setError(e.message)
-            throw e
         }
     }, [])
 
