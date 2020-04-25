@@ -11,16 +11,17 @@ export const useRoutes = isAutenticated => {
     if (isAutenticated) {
         return (
             <Switch>
-                <Route patch='/tasks' exact>
+                <Route path='/tasks' exact>
                     <TaskBar/>
                 </Route>
+                <Redirect to='/tasks'/>
             </Switch>
         )
     }  
     
     return (
         <Switch>
-            <Route patch='/' exact>
+            <Route path='/' exact>
                 {console.log("Authorization")}
                 <Authorization />
             </Route>
