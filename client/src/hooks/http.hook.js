@@ -9,7 +9,7 @@ export const useHttp = () => {
         try {
             if (body) {
                 body = JSON.stringify(body)
-                headers['Contetnt-Type'] = 'application/json' 
+                headers['Content-Type'] = 'application/json'
             }
 
             const responce = await fetch(url, {method, body, headers})
