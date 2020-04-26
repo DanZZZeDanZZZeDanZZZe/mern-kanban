@@ -4,8 +4,8 @@ const router = Router()
 
 router.post('/send', async (req, res) => {
     try {
-        const { id } = req.body
-        console.log('bh:', id)
+        const {tasksState, counter} = req.body
+        console.log('bh:', req.body)
         res.status(201).json({ message: 'Data send to server'})
     } catch {
         res.status(500).json({message: 'Something went wrong. Try it again!'})

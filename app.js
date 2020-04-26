@@ -1,13 +1,11 @@
 const express = require('express')
 const config = require('config')
-const dataRouter = require('./routes/data.routes')
-const authRouter = require('./routes/auth.routes')
 const app = express()
 
 app.use(express.json({ extended: true}))
 
-app.use('/api/auth', authRouter)
-app.use('/api/data', dataRouter)
+app.use('/api/auth', require('./routes/auth.routes'))
+app.use('/api/data', require('./routes/data.routes'))
 
 const PORT = config.get('port') || 5000
 

@@ -27,6 +27,11 @@ export const TaskBarState = ({children}) => {
         taskBarReducer, initTasksState()
     )
 
+    const [counter, setCounter] = useState(kanbanInfoJSON 
+        ? JSON.parse(kanbanInfoJSON).counter
+        : 0
+    )
+
     const setTasksState = (newstate) => {
         dispatch({
             type: SET_STATE,
@@ -102,15 +107,10 @@ export const TaskBarState = ({children}) => {
 
     const sendTasksState = async () => {
         try {
-            const fetched = await request('/api/data/send', 'POST', {id: 'sds'})
-            console.log(fetched)
+            const fetched = await request('/api/data/send', 'POST', {tasksState, counter})
+            console.log(fetched.message)
         } catch (e) {}
     }
-
-    const [counter, setCounter] = useState(kanbanInfoJSON 
-        ? JSON.parse(kanbanInfoJSON).counter
-        : 0
-    )
     
     useEffect(() => {
         const serialTasksState = JSON.stringify({tasksState, counter})
