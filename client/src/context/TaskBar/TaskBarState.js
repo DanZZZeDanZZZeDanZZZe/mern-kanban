@@ -2,12 +2,13 @@ import React, {useReducer, useState, useEffect} from 'react'
 import { taskBarContext } from './taskBarContext'
 import { taskBarReducer } from './taskBarReducer'
 import { useHttp } from '../../hooks/http.hook'
-import { SET_STATE, RAIS_THE_TASK, ADD_TASK, ADD_TASK_LIST, TASK_SETTING, MAKE_AVAILABLE, CHECK_AVAILABILITY, DELETE_TASK_LIST } from '../types'
+import { SET_STATE, RAIS_THE_TASK, ADD_TASK, ADD_TASK_LIST, TASK_SETTING, CHECK_AVAILABILITY, DELETE_TASK_LIST, SEND_TASKS_STATE } from '../types'
 
 export const TaskBarState = ({children}) => {
+    const {request, error} = useHttp()
+
     const titles = ['Backlog', 'Ready', 'In progress', 'Finished']
     const kanbanInfoJSON = localStorage.getItem('kanbanInfo')
-    const {request} = useHttp()
 
     const initTasksState = () => {
         return kanbanInfoJSON 
@@ -99,6 +100,13 @@ export const TaskBarState = ({children}) => {
         checkAvailability()
     }
 
+    const sendTasksState = async () => {
+        try {
+            const fetched = await request('/api/data/send', 'POST', {id: 'sds'})
+            console.log(fetched)
+        } catch (e) {}
+    }
+
     const [counter, setCounter] = useState(kanbanInfoJSON 
         ? JSON.parse(kanbanInfoJSON).counter
         : 0
@@ -110,12 +118,10 @@ export const TaskBarState = ({children}) => {
         console.log(tasksState)
     }, [tasksState])
 
-    /*useEffect(async () => {
-        try {
-            const body = JSON.stringify({tasksState, counter})
-            const fetched = await request('/tasks', 'POST', null)
-        } catch (e) {}
-    }, [tasksState])*/
+    useEffect(() => {
+        sendTasksState()
+    }, [tasksState])
+
     return (
         <taskBarContext.Provider value = {{
             tasksState, 

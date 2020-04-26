@@ -1,11 +1,13 @@
 const express = require('express')
 const config = require('config')
-
+const dataRouter = require('./routes/data.routes')
+const authRouter = require('./routes/auth.routes')
 const app = express()
 
-app.use(express.json({  extended:true}))
-app.use('/api/auth', () => { console.log('hy')}, require('./routes/auth.routes'))
-app.use('/api/data', () => { console.log('hy')}, require('./routes/tasks.routes'))
+app.use(express.json({ extended: true}))
+
+app.use('/api/auth', authRouter)
+app.use('/api/data', dataRouter)
 
 const PORT = config.get('port') || 5000
 
@@ -19,3 +21,4 @@ async function start() {
 }
 
 start()
+

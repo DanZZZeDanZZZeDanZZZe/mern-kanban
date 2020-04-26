@@ -13,6 +13,7 @@ export const useHttp = () => {
             }
 
             const responce = await fetch(url, {method, body, headers})
+            console.log(responce)
             const data = await responce.json()
             if (!responce.ok) {
                 throw new Error(data.message || 'Something went wrong')
