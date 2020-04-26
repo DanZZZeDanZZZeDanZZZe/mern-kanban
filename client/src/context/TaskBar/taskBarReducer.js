@@ -17,7 +17,8 @@ const handlers = {
             
         stateItem.issues.push({ 
             id: `task${counter}`,                 
-            name: value             
+            name: value,
+            text: null             
         })
         
         return [stateItem].concat(stateResidue)
