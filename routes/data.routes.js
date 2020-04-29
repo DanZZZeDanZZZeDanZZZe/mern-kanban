@@ -1,11 +1,14 @@
 const {Router} = require('express')
+const transformData = require('../middleware/transformData.middleware')
 
 const router = Router()
 
-router.post('/send', async (req, res) => {
+router.post('/send', transformData, async (req, res) => {
+    console.log(1)
     try {
-        const {tasksState, counter} = req.body
-        console.log('bh:', req.body)
+       // const {tasksState, counter} = req.body
+        const {issuesList, panelList} = req.Lists
+        console.log(issuesList, panelList)
         res.status(201).json({ message: 'Data send to server'})
     } catch {
         res.status(500).json({message: 'Something went wrong. Try it again!'})
