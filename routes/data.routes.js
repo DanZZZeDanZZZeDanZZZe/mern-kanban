@@ -1,9 +1,9 @@
 const {Router} = require('express')
 const transformData = require('../middleware/transformData.middleware')
-
+const saveData = require('../middleware/saveData.middleware')
 const router = Router()
 
-router.post('/send', transformData, async (req, res) => {
+router.post('/send', transformData, saveData, async (req, res) => {
     console.log(1)
     try {
        // const {tasksState, counter} = req.body

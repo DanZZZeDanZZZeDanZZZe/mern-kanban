@@ -1,6 +1,0 @@
-{
-    "port": 5000,
-    "jwtSecret":"artem KANBAN",
-    "mongoUri": "mongodb+srv://jyjek:123abc@cluster0-2fbzx.azure.mongodb.net/test?retryWrites=true&w=majority",
-    "baseUrl": "http://localhost:5000"
-}
